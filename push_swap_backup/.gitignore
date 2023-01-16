@@ -1,0 +1,6 @@
+*.out
+.o
+test*/
+*.a
+obj*/
+push_swap
