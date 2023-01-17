@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/12 14:32:08 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:32:38 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,92 @@ void	ft_error(void)
 	ft_printf("Error\n");
 	exit(EXIT_FAILURE);
 }
+
+int	find_max(t_stack *stack)
+{
+	int		max;
+
+	max = stack->value;
+	while (stack)
+	{
+		if (max < stack->value)
+			max = stack->value;
+		stack = stack->next;
+	}
+	return (max);
+}
+
+int	check_sorted_idx(t_stack *stack)
+{
+	while (stack)
+	{
+		if (!stack->s_idx)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+int	find_min(t_stack *stack)
+{
+	int		min;
+
+	min = stack->value;
+	while (stack)
+	{
+		if (min > stack->value && !stack->s_idx)
+			min = stack->value;
+		stack = stack->next;
+	}
+	ft_printf("{ %d } ", min);
+	return (min);
+}
+
+void	sorted_index(t_stack *stack)
+{
+	t_stack	*head;
+	int		min;
+	int		cnt;
+
+	cnt = 0;
+	head = stack;
+	while (stack && cnt<10)
+	{
+		min = find_min(stack);
+		ft_printf("\n|%d | %d |\n", stack->value, min);
+		if (min == stack->value)
+		{
+			stack->s_idx = ++cnt; 
+			stack = head;
+			// min = find_min(stack);
+		}
+		if (!head->s_idx)
+			stack = stack->next;
+		else
+			head = stack->next;
+	}
+}
+			// if (check_sorted_idx(stack))
+			// 	min = find_min(stack);
+// void	sorted_index(t_stack *stack)
+// {
+// 	t_stack	*copy;
+// 	int		min;
+// 	int		cnt;
+
+// 	while (stack->next)
+// 	{
+		
+// 		copy = stack->next;
+// 		while (copy)
+// 		{
+// 			if (copy->value == stack->value)
+// 				ft_error();
+// 			copy = copy->next;
+// 		}
+// 		stack = stack->next;
+// 	}
+// }
 
 void	check_repeated_arg(char **argv)
 {

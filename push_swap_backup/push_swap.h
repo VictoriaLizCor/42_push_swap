@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:22:17 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 13:43:18 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:10:50 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-void	check_after_string_data(char *str, int ret, int extra);
-void	print_stack(t_stack *list);
-void	show_stack(t_stack *stack_a, t_stack *stack_b);
+/* Input verification */
+/* check.c*/
 void	check_integers(char **argv);
 void	check_repeated(t_stack *stack);
 void	ft_error(void);
+int		find_min(t_stack *stack);
+int		find_max(t_stack *stack);
+void	sorted_index(t_stack *stack);
 
-/* Instructions*/
+/* Instructions */
 /* swap.c */
 void	sa(t_stack *stack);
 void	sb(t_stack *stack);
@@ -67,4 +69,9 @@ void	pb(t_stack **stack_a, t_stack **stack_b);
 /* update.c */
 t_stack	*stack_last(t_stack *stack);
 void	update_weight(t_stack *stack);
+/* testing Utils*/
+/* push_swap_utils.c */
+void	check_after_string_data(char *str, int ret, int extra);
+void	print_stack(t_stack *list);
+void	show_stack(t_stack *stack_a, t_stack *stack_b);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:11:13 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 13:32:31 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:50:05 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	fill_stack(t_stack **stack_a, int argc, char *argv)
 		*stack_a = NULL;
 	new_node->value = ft_atoi(argv);
 	new_node->index = argc;
-	new_node->weight = new_node->index - new_node->value;
+	new_node->weight = new_node->value - new_node->index;
 	if (!(*stack_a))
 	{
 		*stack_a = new_node;
@@ -92,18 +92,13 @@ static void	push_swap(int argc, char **argv)
 
 	while (*(argv))
 		fill_stack(&stack_a, --argc, *argv++);
+	check_repeated(stack_a);
+	ft_printf("\nMin val : %d\n", find_min(stack_a));
+	ft_printf("\nMax val : %d\n", find_max(stack_a));
 	show_stack(stack_a, stack_b);
+	sorted_index(stack_a);
 	print_stack(stack_a);
-	printf("\nsorted(%d)\n", check_sorted(stack_a));
-	rra(&stack_a);
-	show_stack(stack_a, stack_b);
-	print_stack(stack_a);
-	rra(&stack_a);
-	show_stack(stack_a, stack_b);
-	print_stack(stack_a);
-	ra(&stack_a);
-	show_stack(stack_a, stack_b);
-	print_stack(stack_a);
+	ft_printf("\nsorted(%d)\n", check_sorted(stack_a));
 }
 //free((void *)stack_a);
 // free_node_stack((void *)stack_a);
