@@ -6,42 +6,50 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/16 17:19:43 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:34:35 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	reverse_rotate(t_stack *stack)
+void	reverse_rotate(t_stack **stack)
 {
-	t_stack	*ptr;
-	int		tmp;
+	t_stack	*new_head;
+	t_stack	*tail_previous;
 
-	ptr = stack_last(stack);
-	if (!stack || !stack->next)
+	if (!(*stack) || !(*stack)->next)
 		return ;
-	tmp = stack->value;
-	stack->value = ptr->value;
-	ptr->value = tmp;
-	update_weight(stack);
+	new_head = stack_last(*stack);
+	tail_previous = new_head->previous;
+	tail_previous->next = NULL;
+	(*stack)->previous = new_head;
+	new_head->previous = NULL;
+	new_head->tail = 0;
+	new_head->head = 1;
+	tail_previous->head = 0;
+	tail_previous->tail = 1;
+	(*stack)->head = 0;
+	
+	new_head->next = *stack;
+	*stack = new_head;
+	update_weight((*stack));
 }
 
-void	rra(t_stack *stack)
+void	rra(t_stack **stack)
 {
-	reverse_rotate(stack);
-	ft_printf("ra\n");
+	reverse_rotate(&*stack);
+	ft_printf("rra\n");
 }
 
-void	rrb(t_stack *stack)
+void	rrb(t_stack **stack)
 {
-	reverse_rotate(stack);
-	ft_printf("rb\n");
+	reverse_rotate(&*stack);
+	ft_printf("rrb\n");
 }
 
-void	rrr(t_stack *stack_a, t_stack *stack_b)
+void	rrr(t_stack **stack_a, t_stack **stack_b)
 {
-	reverse_rotate(stack_a);
-	reverse_rotate(stack_b);
+	reverse_rotate(&*stack_a);
+	reverse_rotate(&*stack_b);
 	ft_printf("rrr\n");
 }
-

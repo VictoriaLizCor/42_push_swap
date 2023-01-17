@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:11:13 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/16 17:22:11 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:32:31 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,13 @@ static void	push_swap(int argc, char **argv)
 	show_stack(stack_a, stack_b);
 	print_stack(stack_a);
 	printf("\nsorted(%d)\n", check_sorted(stack_a));
-	rotate(stack_a);
+	rra(&stack_a);
+	show_stack(stack_a, stack_b);
+	print_stack(stack_a);
+	rra(&stack_a);
+	show_stack(stack_a, stack_b);
+	print_stack(stack_a);
+	ra(&stack_a);
 	show_stack(stack_a, stack_b);
 	print_stack(stack_a);
 }

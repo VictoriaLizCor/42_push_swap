@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:20:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/16 15:33:55 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:40:00 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	print_stack(t_stack *list)
 	i = 0;
 	print = list;
 	printf("\n\n------ %d ------- List HEAD Address : %p\t \t\n", i++, list);
-	printf(" Head | Tail  | Value |  Idx  | Weight |  Top  |\tcurrent     |\t     previous      |\t   next\n");
-	while (print && i < 5)
+	printf(" Head | Tail  | Value |  Idx  | Weight | S_Idx |\tcurrent     |\t     previous      |\t   next\n");
+	while (print && i < 10)
 	{
 		printf("%4d  | %4d  | %4d  | %4d  | %4d   |%4d   |   %4p   |\t  %4p   |\t\t%4p \n", \
 		print->head, print->tail, print->value, \
-		print->index, print->weight, print->top, \
+		print->index, print->weight, print->s_idx, \
 		print, print->previous, print->next);
 		print = print->next;
 		// i++;
