@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/18 15:50:58 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:35:04 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,63 +89,10 @@ void	sorted_index(t_stack *stack)
 		if (stack == NULL)
 			stack = head;
 		if (check_sorted_idx(head))
-			break;
-	}
-}
-		// if (min == head->value && head->s_idx == 0)
-		// {
-		// 	head->s_idx = ++cnt; 
-		// 	head = head->next;
-		// 	stack = head;
-		// }
-			// if (check_sorted_idx(stack))
-			// 	min = find_min(stack);
-// void	sorted_index(t_stack *stack)
-// {
-// 	t_stack	*copy;
-// 	int		min;
-// 	int		cnt;
-
-// 	while (stack->next)
-// 	{
-		
-// 		copy = stack->next;
-// 		while (copy)
-// 		{
-// 			if (copy->value == stack->value)
-// 				ft_error();
-// 			copy = copy->next;
-// 		}
-// 		stack = stack->next;
-// 	}
-// }
-
-void	check_repeated_arg(char **argv)
-{
-	char	**copy;
-	int		len1;
-	int		len;
-
-	while (*argv)
-	{
-		copy = argv;
-		while (*(++copy))
-		{
-			len1 = ft_strlen(*argv);
-			if (len1 >= (int)ft_strlen(*copy))
-				len = len1;
-			else
-				len = (int)ft_strlen(*copy);
-			if (ft_strncmp(*argv, *(copy), len) == 0)
-				ft_error();
-		}
-		argv++;
+			break ;
 	}
 }
 
-		// if (ft_strchr(copy, ' '))
-		// {			
-		// }
 void	check_integers(char **argv)
 {
 	char	*copy;
@@ -170,11 +117,6 @@ void	check_integers(char **argv)
 	}
 }
 
-// char	**check_strings(char **str)
-// {
-// 	char 
-// }
-
 void	check_repeated(t_stack *stack)
 {
 	t_stack	*copy;
@@ -192,24 +134,25 @@ void	check_repeated(t_stack *stack)
 	}
 }
 
-//ft_strncmp(*argv, *(copy), len)
+// void	check_repeated_arg(char **argv)
+// {
+// 	char	**copy;
+// 	int		len1;
+// 	int		len;
 
-// while (*s != '\0' && (ft_isdigit(*s) || 
-//ft_strchr(" +-\t\n\r\v\f", *s) != NULL))
-// if ((*s == '+' || *s == '-') && ft_strchr(" +-\t\n\r\v\f", *(s + 1)))
-
-// if (ft_strchr(" +-\t\n\r\v\f", *(*copy) + 1))
-// 	ft_error();
-
-// while (*(*copy) && (ft_isdigit(*(*copy)) || \
-// ft_strchr("+-", *(*copy)) != NULL))
-// if (s[s_i] != c && (s[s_i + 1] == 0 || s[s_i + 1] == c))
-// / if (!(*(*copy + 1)) || \
-			// ft_strchr("+-", *(*copy)) != NULL)
-			// 	(*copy)++;
-			// if (!ft_isdigit(*(*copy + 1)))
-			// 	ft_error();
-			// else
-			// 	(*copy)++;
-//ft_printf("%c", *(*copy));
-//ft_printf("\n*%d\n", ft_atoi(*argv));
+// 	while (*argv)
+// 	{
+// 		copy = argv;
+// 		while (*(++copy))
+// 		{
+// 			len1 = ft_strlen(*argv);
+// 			if (len1 >= (int)ft_strlen(*copy))
+// 				len = len1;
+// 			else
+// 				len = (int)ft_strlen(*copy);
+// 			if (ft_strncmp(*argv, *(copy), len) == 0)
+// 				ft_error();
+// 		}
+// 		argv++;
+// 	}
+// }
