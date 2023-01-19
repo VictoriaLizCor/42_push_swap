@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 17:32:38 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:50:58 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,56 +32,72 @@ int	find_max(t_stack *stack)
 	return (max);
 }
 
-int	check_sorted_idx(t_stack *stack)
+int	check_sorted_idx(t_stack *head)
 {
+	t_stack	*stack;
+
+	stack = head;
 	while (stack)
 	{
-		if (!stack->s_idx)
-			return (1);
+		if (stack->s_idx == 0)
+			return (0);
 		stack = stack->next;
 	}
-	return (0);
+	return (1);
 }
 
 int	find_min(t_stack *stack)
 {
 	int		min;
 
+	while (stack)
+	{
+		if (stack->s_idx == 0)
+			break ;
+		stack = stack->next;
+	}
 	min = stack->value;
 	while (stack)
 	{
-		if (min > stack->value && !stack->s_idx)
-			min = stack->value;
+		if (stack->s_idx == 0)
+		{
+			if (min > stack->value)
+				min = stack->value;
+		}
 		stack = stack->next;
 	}
-	ft_printf("{ %d } ", min);
+	printf("{%d}\n", min);
 	return (min);
 }
 
 void	sorted_index(t_stack *stack)
 {
 	t_stack	*head;
-	int		min;
+	t_stack *head_cpy;
 	int		cnt;
 
 	cnt = 0;
 	head = stack;
-	while (stack && cnt<10)
+	head_cpy = stack;
+	while (stack)
 	{
-		min = find_min(stack);
-		ft_printf("\n|%d | %d |\n", stack->value, min);
-		if (min == stack->value)
-		{
-			stack->s_idx = ++cnt; 
+		ft_printf("\nstack |%d | |\t stack| %p \thead| %p\n", stack->value, stack, head);
+		if (stack->s_idx == 0 && find_min(head) == stack->value)
+			stack->s_idx = ++cnt;
+		stack = stack->next;
+		print_stack(head_cpy);
+		if (stack == NULL)
 			stack = head;
-			// min = find_min(stack);
-		}
-		if (!head->s_idx)
-			stack = stack->next;
-		else
-			head = stack->next;
+		if (check_sorted_idx(head))
+			break;
 	}
 }
+		// if (min == head->value && head->s_idx == 0)
+		// {
+		// 	head->s_idx = ++cnt; 
+		// 	head = head->next;
+		// 	stack = head;
+		// }
 			// if (check_sorted_idx(stack))
 			// 	min = find_min(stack);
 // void	sorted_index(t_stack *stack)
