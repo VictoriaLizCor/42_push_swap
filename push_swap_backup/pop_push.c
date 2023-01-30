@@ -6,38 +6,39 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:05:15 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/16 17:14:42 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:03:14 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pop(t_stack **stack_src, t_stack **stack_dst)
+t_stack	*pop(t_stack **stack_src)
 {
 	t_stack	*tmp;
 
-	if (!(*stack_src))
-		return ;
-	tmp = (*stack_src);
-	(*stack_dst) = (*stack_src);
-}
-
-void	push_pop(t_stack **stack_src, t_stack **stack_dst)
-{
-	t_stack	*tmp;
-
-	if (!(*stack_src))
-		return ;
 	if ((*stack_src)->next)
 	{
 		(*stack_src)->next->head = 1;
-		(*stack_src)->next->previous = NULL;
+		(*stack_src)->next->previous = stack_last(*stack_src);
 	}
 	tmp = (*stack_src);
 	(*stack_src) = (*stack_src)->next;
+	if ((*stack_src))
+		(*stack_src)->previous = stack_last(*stack_src);
+	return (tmp);
+}
+
+static	void	push_pop(t_stack **stack_src, t_stack **stack_dst)
+{
+	t_stack	*tmp;
+
+	if (!(*stack_src))
+		return ;
+	tmp = pop(&*stack_src);
 	if (!(*stack_dst))
 	{
 		(*stack_dst) = tmp;
+		(*stack_dst)->previous = NULL;
 		(*stack_dst)->next = NULL;
 		(*stack_dst)->tail = 1;
 	}
@@ -45,6 +46,7 @@ void	push_pop(t_stack **stack_src, t_stack **stack_dst)
 	{
 		tmp->next = (*stack_dst);
 		(*stack_dst) = tmp;
+		(*stack_dst)->previous = stack_last(*stack_dst);
 		(*stack_dst)->next->previous = (*stack_dst);
 		(*stack_dst)->next->head = 0;
 		(*stack_dst)->tail = 0;
@@ -56,6 +58,8 @@ void	pa(t_stack **stack_b, t_stack **stack_a)
 	push_pop(&*stack_b, &*stack_a);
 	update_weight(*stack_a);
 	update_weight(*stack_b);
+	update_idx_current_stack(*stack_a);
+	update_idx_current_stack(*stack_b);
 	ft_printf("pa\n");
 }
 
@@ -64,5 +68,7 @@ void	pb(t_stack **stack_a, t_stack **stack_b)
 	push_pop(&*stack_a, &*stack_b);
 	update_weight(*stack_a);
 	update_weight(*stack_b);
+	update_idx_current_stack(*stack_a);
+	update_idx_current_stack(*stack_b);
 	ft_printf("pb\n");
 }

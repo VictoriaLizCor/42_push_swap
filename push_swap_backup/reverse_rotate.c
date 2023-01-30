@@ -6,13 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 13:34:35 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:01:54 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	reverse_rotate(t_stack **stack)
+static void	reverse_rotate(t_stack **stack)
 {
 	t_stack	*new_head;
 	t_stack	*tail_previous;
@@ -23,16 +23,15 @@ void	reverse_rotate(t_stack **stack)
 	tail_previous = new_head->previous;
 	tail_previous->next = NULL;
 	(*stack)->previous = new_head;
-	new_head->previous = NULL;
 	new_head->tail = 0;
 	new_head->head = 1;
 	tail_previous->head = 0;
 	tail_previous->tail = 1;
 	(*stack)->head = 0;
-	
 	new_head->next = *stack;
 	*stack = new_head;
-	update_weight((*stack));
+	update_weight(*stack);
+	update_idx_current_stack(*stack);
 }
 
 void	rra(t_stack **stack)

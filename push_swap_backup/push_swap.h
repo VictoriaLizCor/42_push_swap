@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:22:17 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 15:10:50 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:12:44 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include "./lib/libft/libft.h"
 
+// # define GET_VAR_NAME(VAR_NAME) #VAR_NAME
 /*
 value	=	input data
 index	=	stack array;
@@ -29,49 +30,67 @@ s_idx	=	sorted values index
 typedef struct s_stack
 {
 	int				value;
+	int				s_idx;
 	int				index;
 	int				weight;
 	int				head;
 	int				tail;
-	int				s_idx;
 	struct s_stack	*previous;
 	struct s_stack	*next;
 }	t_stack;
 
+typedef struct s_stacks_array
+{
+	const void	*stack;
+	char		c_type;
+}	t_stacks_array;
+
+typedef struct s_sorted
+{
+	t_stack			*head_sorted;
+	struct s_sorted	*next;
+}	t_sorted;
+
+/* main */
+void		ft_error(void);
 /* Input verification */
 /* check.c*/
-void	check_integers(char **argv);
-void	check_repeated(t_stack *stack);
-void	ft_error(void);
-int		find_min(t_stack *stack);
-int		find_max(t_stack *stack);
-void	sorted_index(t_stack *stack);
-
+void		check_integers(char **argv);
+void		check_repeated(t_stack *stack);
+void		sort_index(t_stack *stack);
+int			check_sorted(t_stack *stack);
+/* check_utils.c*/
+int			find_min(t_stack *stack);
+t_stack		*stack_last(t_stack *stack);
 /* Instructions */
 /* swap.c */
-void	sa(t_stack *stack);
-void	sb(t_stack *stack);
-void	ss(t_stack *stack_a, t_stack *stack_b);
+void		swap_exe(t_stacks_array s_array[2], int i);
+void		sa(t_stack *stack);
+void		sb(t_stack *stack);
+void		ss(t_stack *stack_a, t_stack *stack_b);
 /* rotate.c */
-void	rotate(t_stack **stack);
-void	ra(t_stack **stack);
-void	rb(t_stack **stack);
-void	rr(t_stack **stack_a, t_stack **stack_b);
+void		ra(t_stack **stack);
+void		rb(t_stack **stack);
+void		rr(t_stack **stack_a, t_stack **stack_b);
 /* reverse_rotate.c */
-void	reverse_rotate(t_stack **stack);
-void	rra(t_stack **stack);
-void	rrb(t_stack **stack);
-void	rrr(t_stack **stack_a, t_stack **stack_b);
+void		rra(t_stack **stack);
+void		rrb(t_stack **stack);
+void		rrr(t_stack **stack_a, t_stack **stack_b);
 /* pop_push.c*/
-void	push_pop(t_stack **stack_src, t_stack **stack_dst);
-void	pa(t_stack **stack_b, t_stack **stack_a);
-void	pb(t_stack **stack_a, t_stack **stack_b);
+void		pa(t_stack **stack_b, t_stack **stack_a);
+void		pb(t_stack **stack_a, t_stack **stack_b);
 /* update.c */
-t_stack	*stack_last(t_stack *stack);
-void	update_weight(t_stack *stack);
+void		update_weight(t_stack *stack);
+void		update_idx_current_stack(t_stack *stack);
+/* Sortingalgorithm.c */
+void		sorting_algorithm(t_stack **stack_a, t_stack **stack_b, t_stacks_array s_array[2]);
+// void		sorting_algorithm(t_stack **stack_a, t_stack **stack_b, t_stacks_array s_array[2], int size_stack_a);
+void		check_first_element(t_stack **stack_a, t_stack **stack_b, t_stacks_array st[2], int max_s_idx);
 /* testing Utils*/
 /* push_swap_utils.c */
-void	check_after_string_data(char *str, int ret, int extra);
-void	print_stack(t_stack *list);
-void	show_stack(t_stack *stack_a, t_stack *stack_b);
+int			find_min_value(t_stack *stack, void *value);
+int			find_max_value(t_stack *stack, void *value);
+void		check_after_string_data(char *str, int ret, int extra);
+void		print_stack(t_stack *list);
+void		show_stack(t_stack *stack_a, t_stack *stack_b);
 #endif

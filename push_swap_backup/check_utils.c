@@ -1,67 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 12:11:13 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/27 16:29:22 by lilizarr         ###   ########.fr       */
+/*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
+/*   Updated: 2023/01/24 15:23:25 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//seq -1000 2000 | sort -R | tail -n 1000 | tr '\n' ' '
-#include "./lib/libft/libft.h"
-/*
-3 numbers <= 3 moves,
-5 numbers <= 12 moves, 
-100 numbers <= 700 moves
-500 numbers <= 5500
-*/
+#include "push_swap.h"
 
-/* Rules
-non_repetive number to stack -> error if found
-+/- numbers allowed
-INT_MIN < numbers < INT_MAX
-Stack_A -> initialized with random numbers
-Stack -> empty
-sort in ascending order 
-*/
-
-/* Instructions 
-sa  / sb  / ss
-ra  / rb  / rr
-rra / rrb / rrr
-pa 	/ pb
-*/
-
-int	main(void)
+int	find_min(t_stack *stack)
 {
-	ft_printf("HOLA\n");
-	return (0);
+	int		min;
+
+	while (stack)
+	{
+		if (stack->s_idx == 0)
+			break ;
+		stack = stack->next;
+	}
+	min = stack->value;
+	while (stack)
+	{
+		if (stack->s_idx == 0)
+		{
+			if (min > stack->value)
+				min = stack->value;
+		}
+		stack = stack->next;
+	}
+	return (min);
 }
 
-// static void	push_swap(int argc, char **argv)
-// {
-// 	static t_stack	*stack_b;
-// 	static t_stack	*stack_a;
-// 	// t_stacks_array	s_array[2];
-// 	void *ptr;
-// 	void *value;
-// 	int i;
-// 	i=0;
+t_stack	*stack_last(t_stack *stack)
+{
+	t_stack	*last;
 
-// 	// s_array[0].stack = &stack_a;
-// 	// s_array[0].c_type = ('a');
-// 	// s_array[1].stack = &stack_b;
-// 	// s_array[1].c_type = ('b');
-// 	while (*(argv))
-// 		fill_stack(&stack_a, argc--, &(*argv++));
-// 	check_repeated(stack_a);
-// 	show_stack(stack_a, stack_b);
-// 	sort_index(stack_a);
-// 	show_stack(stack_a, stack_b);
-// 		while (stack_a)
+	last = stack;
+	while (last->next)
+	{
+		last = last->next;
+	}
+	if (last == stack)
+		return (last->next);
+	else
+		return (last);
+}
+
+// void test_allocation(t_stack *stack_a)
+// {
+// 	int						i;
+// 	void					*ptr;
+// 	void					*value;
+
+// 	while (stack_a)
 // 	{
 // 		ptr = stack_a;
 // 		printf("%ld \n", (long)(sizeof(t_stack)));
@@ -95,3 +90,17 @@ int	main(void)
 // 		stack_a = stack_a->next;
 // 	}
 // }
+	// int					i;
+	// int					*ptr;
+	// int					*value;
+
+	// while (stack_a)
+	// {
+	// 	i = 0;
+	// 	ptr = (void *)stack_a;
+	// 	printf("%ld \n", (long)(sizeof(t_stack)));
+	// 	value = &stack_a->weight;
+	// 	printf("%ld \n", (value - ptr));
+	// 	printf("%p \n", ptr);
+	// 	printf("%p \n", value);
+	// ft_printf("\nMax val : %d\n", 

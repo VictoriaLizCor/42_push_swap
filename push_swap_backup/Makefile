@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/01/16 17:19:13 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/01/22 11:40:54 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,13 @@ NAME = push_swap
 
 SRC =	push_swap.c				\
 		check.c					\
+		check_utils.c			\
 		swap.c					\
 		rotate.c				\
 		reverse_rotate.c		\
 		update.c				\
 		pop_push.c				\
+		sorting_algorithm.c		\
 		push_swap_utils.c		\
 
 OBJS_DIR = obj/
@@ -67,7 +69,25 @@ re: fclean all
 
 test: $(NAME)
 	@echo "******** RUNNING TEST [21 1 5]************"
-	$(eval NUMBERS = 21 1 5)
+	$(eval NUMBERS = -839 -1320 -1670 954 -115)
+	./push_swap $(NUMBERS)
+	@echo "********************"
+
+testr3: $(NAME)
+	@echo "******** RUNNING TEST [21 1 5]************"
+	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n 3 | tr '\n' ' '))
+	./push_swap $(NUMBERS)
+	@echo "********************"
+
+testr4: $(NAME)
+	@echo "******** RUNNING TEST [21 1 5]************"
+	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n 4 | tr '\n' ' '))
+	./push_swap $(NUMBERS)
+	@echo "********************"
+
+testr5: $(NAME)
+	@echo "******** RUNNING TEST [21 1 5]************"
+	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n 5 | tr '\n' ' '))
 	./push_swap $(NUMBERS)
 	@echo "********************"
 
@@ -92,6 +112,13 @@ randoml: $(NAME)
 	@echo "********************"
 
 randomb: $(NAME)
+	@echo "******** RUNNING TEST ************"
+	$(eval SIZE = $(shell seq 1 20 | sort -R | tail -n 1 | tr '\n' ' '))
+	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
+	./push_swap $(NUMBERS)
+	@echo "********************"
+
+randombl: $(NAME)
 	@echo "******** RUNNING TEST ************"
 	$(eval SIZE = $(shell seq 1 20 | sort -R | tail -n 1 | tr '\n' ' '))
 	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n $(SIZE) | tr '\n' ' '))

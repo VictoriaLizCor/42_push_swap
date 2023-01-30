@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 11:53:20 by lilizarr          #+#    #+#             */
-/*   Updated: 2022/12/27 15:28:09 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:05:40 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void	free_node_list(void **list)
 {
 	t_list	*tmp;
 	t_list	*to_erase;
-	int		i;
 
-	i = 0;
 	to_erase = *list;
 	tmp = to_erase->next;
 	free(to_erase->str);
@@ -98,12 +96,12 @@ void	search_line(t_list **list, char **line)
 
 char	*get_next_line(int fd)
 {
-	static t_list		*list[OPEN_MAX];
+	static t_list		*list[FOPEN_MAX];
 	int					ret;
 	char				*line;
 	char				*read_buffer;
 
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = NULL;
 	read_buffer = (char *)malloc(BUFFER_SIZE + 1);

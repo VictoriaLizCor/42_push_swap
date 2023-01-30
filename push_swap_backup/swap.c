@@ -6,21 +6,24 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 11:54:47 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:50:34 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swap(t_stack *stack)
+static void	swap(t_stack	*stack)
 {
-	int	tmp;
+	int		tmp;
 
 	if (!stack || !stack->next)
 		return ;
 	tmp = stack->value;
 	stack->value = stack->next->value;
 	stack->next->value = tmp;
+	tmp = stack->s_idx;
+	stack->s_idx = stack->next->s_idx;
+	stack->next->s_idx = tmp;
 	update_weight(stack);
 }
 
@@ -43,6 +46,15 @@ void	ss(t_stack *stack_a, t_stack *stack_b)
 	ft_printf("ss\n");
 }
 
+// void	swap_exe(t_stacks_array s_array[2], int i)
+// {
+// 	swap(*(t_stack **)s_array[i].stack);
+// 	ft_printf("s");
+// 	if (i == 0 || i == 1)
+// 		ft_printf("%c\n", s_array[i].c_type);
+// 	else
+// 		ft_printf("s\n");
+// }
 
 // void	swap(t_stack **stack)
 // {

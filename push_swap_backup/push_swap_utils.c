@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:20:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/17 15:42:35 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:25:43 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	print_stack(t_stack *list)
 	i = 0;
 	print = list;
 	printf("\n\n------ %d ------- List HEAD Address : %p\t \t\n", i++, list);
-	printf(" Head || Tail  || Value ||  Idx  || Weight || S_Idx ||\t     current      ||\t     previous      ||\t   next\n");
+	printf(" Head || Tail  || Value ||  Idx  || S_Idx || Weight ||\t     current      ||\t     previous      ||\t   next\n");
 	while (print && i < 10)
 	{
-		printf("%4d  || %4d  || %4d  || %4d  || %4d   ||%4d   ||   %4p   ||\t  %4p   ||\t\t%4p \n", \
+		printf("   %d  ||   %d  ||   %d  ||   %d  ||   %d   ||  %d   ||    %p   ||\t    %p   ||\t\t%p \n", \
 		print->head, print->tail, print->value, \
-		print->index, print->weight, print->s_idx, \
+		print->index, print->s_idx, print->weight, \
 		print, print->previous, print->next);
 		print = print->next;
 		// i++;
@@ -62,6 +62,38 @@ void	show_stack(t_stack *stack_a, t_stack *stack_b)
 	ft_printf("\n\t--------- \t---------\n\tstack_a\t\tstack_b\n");
 }
 
+int	find_min_value(t_stack *stack, void *value)
+{
+	int		min;
+	int		diff;
+
+	diff = (value - (void *)stack);
+	min = *(int *)((void *)stack + diff);
+	while (stack)
+	{
+		if (min > *(int *)((void *)stack + diff))
+			min = *(int *)((void *)stack + diff);
+		stack = stack->next;
+	}
+	return (min);
+}
+
+int	find_max_value(t_stack *stack, void *value)
+{
+	int		max;
+	int		diff;
+
+	diff = (value - (void *)stack);
+	max = *(int *)((void *)stack + diff);
+	while (stack)
+	{
+		if (max < *(int *)((void *)stack + diff))
+			max = *(int *)((void *)stack + diff);
+		stack = stack->next;
+	}
+	return (max);
+}
+
 void	check_after_string_data(char *str, int ret, int extra)
 {
 	int		i;
@@ -89,14 +121,25 @@ void	check_after_string_data(char *str, int ret, int extra)
 		printf("\n ** null \n");
 }
 
-t_stack	*stack_last(t_stack *stack)
-{
-	t_stack	*last;
+// void	check_repeated_arg(char **argv)
+// {
+// 	char	**copy;
+// 	int		len1;
+// 	int		len;
 
-	last = stack;
-	while (last->next)
-	{
-		last = last->next;
-	}
-	return (last);
-}
+// 	while (*argv)
+// 	{
+// 		copy = argv;
+// 		while (*(++copy))
+// 		{
+// 			len1 = ft_strlen(*argv);
+// 			if (len1 >= (int)ft_strlen(*copy))
+// 				len = len1;
+// 			else
+// 				len = (int)ft_strlen(*copy);
+// 			if (ft_strncmp(*argv, *(copy), len) == 0)
+// 				ft_error();
+// 		}
+// 		argv++;
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:32:51 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/04 17:10:57 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:04:34 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <fcntl.h> 
 # include <stdint.h>
 # include <stdarg.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
