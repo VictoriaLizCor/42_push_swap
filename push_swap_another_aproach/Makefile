@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/09 12:21:36 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/10 15:33:28 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ testr3: $(NAME)
 	@echo "******** RUNNING TEST [21 1 5]************"
 	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n 3 | tr '\n' ' '))
 	./push_swap $(NUMBERS)
-	./push_swap $(NUMBERS) | wc -l
+	@echo "./push_swap $(NUMBERS) | wc -l"
 	@echo "********************"
 
 testr4: $(NAME)
@@ -89,10 +89,10 @@ testr4: $(NAME)
 	@echo "********************"
 
 testr5: $(NAME)
-	@echo "******** RUNNING TEST [21 1 5]************"
-	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n 5 | tr '\n' ' '))
+	@echo "******** RUNNING TEST [1, 5]************"
+	$(eval NUMBERS = $(shell seq 1 5 | sort -R | tail -n 5 | tr '\n' ' '))
 	./push_swap $(NUMBERS)
-	./push_swap $(NUMBERS) | wc -l
+	@echo "./push_swap $(NUMBERS) | wc -l"
 	@echo "********************"
 
 testr6: $(NAME)

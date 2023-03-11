@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/09 15:24:37 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/11 16:27:38 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,32 +72,39 @@ t_stack *last_ordered_element(t_stack *stack)
 	return (tmp_last);
 }
 
-void	sort_3(t_stack **stack)
+void	sort_3(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*target;
-
-	target = find_target_s_idx(*stack, 1);
+	
+	target = find_target_s_idx(*stack_a, 1);
 	ft_printf("sort_3 \n || target->idx =  %d\n", target->index);
-	if ((*stack)->s_idx - 1 == (*stack)->next->s_idx)
-			sa(*stack);
-	else
+	if ((*stack_a)->s_idx > (*stack_a)->next->s_idx)
+		sa(*stack_a);
+	else if ((*stack_a)->previous && (*stack_a)->previous->index >= 2)
 	{
-		if (target->index == 3 || target->index == 1)
-			rra(&*stack);
+		if (target->index == 3)
+			rra(&*stack_a);
 		else
-			ra(&*stack);
+			ra(&*stack_a);
 	}
+	if ((*stack_b) && (*stack_b)->next)
+	{
+		if ((*stack_b)->s_idx < (*stack_b)->next->s_idx)
+			sb(*stack_b);
+	}
+	print_stack(*stack_a);
+	print_stack(*stack_b);
 }
 
 void	middle_sort(t_stack **stack_a, t_stack **stack_b, int size)
 {
 	t_stack	*target;
 
-	if (size <= 3)
+	if (size <= 3 && !check_sorted(*stack_a))
 	{
 		// while(!check_sorted(*stack_a))
 		// {
-			sort_3(&*stack_a);
+			sort_3(&*stack_a, &*stack_b);
 			print_stack(*stack_a);
 			print_stack(*stack_b);
 		// }
@@ -157,50 +164,89 @@ void divide_stack(t_stack **stack_a, t_stack **stack_b, int size, int limit)
 	print_stack(*stack_b);
 }
 
-void	move_sort(t_stack **stack_a, t_stack **stack_b, int size)
-{
-	t_stack	*target1;
-	t_stack *target2;
+// void	move_sort(t_stack **stack_a, t_stack **stack_b, int size)
+// {
+// 	t_stack	*target1;
+// 	t_stack *target2;
 
-	if ((*stack_b) && (*stack_b)->s_idx == (*stack_a)->s_idx - 1)
-		pa(&*stack_b, &*stack_a);
-	target1 = last_ordered_element(*stack_a);
-	target2 = *stack_a;
-	// target2 = find_target_closer(*stack_a, 1, size -  2);
-	// ft_printf("t1->idx = %d | \t t2->idx = %d\n", target1->index , target2->index);
-	// // target1 = find_target_closer(last_ordered_element(*stack_a), 1);
-	// if ((target2->index) < target1->index)
-	// 	target1 = target2;
-	ft_printf("divtarget -> %p \t|| \t index_tar =  %d || \t s_idx_tar =  %d | size - index = %d\n", target1, target1->index, target1->s_idx, size - target1->index);
-	if (target1->index >= 2 && last_ordered_element(*stack_a) != *stack_a &&\
-	!check_sorted(*stack_a))
+// 	if ((*stack_b) && (*stack_b)->s_idx == (*stack_a)->s_idx - 1)
+// 		pa(&*stack_b, &*stack_a);
+// 	target1 = last_ordered_element(*stack_a);
+// 	target2 = *stack_a;
+// 	// target2 = find_target_closer(*stack_a, 1, size -  2);
+// 	// ft_printf("t1->idx = %d | \t t2->idx = %d\n", target1->index , target2->index);
+// 	// // target1 = find_target_closer(last_ordered_element(*stack_a), 1);
+// 	// if ((target2->index) < target1->index)
+// 	// 	target1 = target2;
+// 	ft_printf("divtarget -> %p \t|| \t index_tar =  %d || \t s_idx_tar =  %d | size - index = %d\n", target1, target1->index, target1->s_idx, size - target1->index);
+// 	if (target1->index >= 2 && last_ordered_element(*stack_a) != *stack_a &&\
+// 	!check_sorted(*stack_a))
+// 	{
+// 		ft_printf("loop\n"); 
+// 		if (target1->index >= size - target1->index)
+// 		{
+// 			while (target1 != (*stack_a)->previous)
+// 				rra(&*stack_a);
+// 		}
+// 		else
+// 		{
+// 			while (target1 != (*stack_a)->previous)
+// 				ra(&*stack_a);
+// 		}
+// 		print_stack(*stack_a);
+// 		print_stack(*stack_b);
+// 		ft_printf("divtarget -> %p \t|| \t index_tar =  %d || \t s_idx_tar =  %d | size - index = %d\n", target1, target1->index, target1->s_idx, size - target1->index);
+// 		ft_printf("divtarget -> %p \t|| \t index_tar =  %d || \t s_idx_tar =  %d | size - index = %d\n", target2, target2->index, target2->s_idx, size - target2->index);
+// 		if ((*stack_a)->s_idx != (*stack_a)->previous->s_idx + 1 && !check_sorted(*stack_a))
+// 			pb(&*stack_a, &*stack_b);
+// 	}
+// 	else if (target1->index == 1 && target1->s_idx - 1 == target1->previous->s_idx)
+// 		ra(&*stack_a);
+// 	print_stack(*stack_a);
+// 	print_stack(*stack_b);
+// 	// if (!check_sorted(*stack_a))
+// 	// 	divide_stack(&*stack_a, &*stack_b, size, size -  2);
+// }
+void	move_2b(t_stack **stack_a, t_stack **stack_b, int size)
+{
+	t_stack *target1;
+
+	while (last_ordered_element(*stack_a) != *stack_a)
 	{
-		ft_printf("loop\n"); 
-		if (target1->index >= size - target1->index)
-		{
-			while (target1 != (*stack_a)->previous)
-				rra(&*stack_a);
-		}
-		else
-		{
-			while (target1 != (*stack_a)->previous)
-				ra(&*stack_a);
-		}
-		print_stack(*stack_a);
-		print_stack(*stack_b);
+		target1 = last_ordered_element(*stack_a);
 		ft_printf("divtarget -> %p \t|| \t index_tar =  %d || \t s_idx_tar =  %d | size - index = %d\n", target1, target1->index, target1->s_idx, size - target1->index);
-		ft_printf("divtarget -> %p \t|| \t index_tar =  %d || \t s_idx_tar =  %d | size - index = %d\n", target2, target2->index, target2->s_idx, size - target2->index);
-		if ((*stack_a)->s_idx != (*stack_a)->previous->s_idx + 1 && !check_sorted(*stack_a))
-			pb(&*stack_a, &*stack_b);
+		if (target1->index >= 2 && last_ordered_element(*stack_a) != *stack_a &&\
+		!check_sorted(*stack_a))
+		{
+			ft_printf("loop\n"); 
+			if (target1->index >= size - target1->index)
+			{
+				while (target1 != (*stack_a)->previous)
+					rra(&*stack_a);
+			}
+			else
+			{
+				while (target1 != (*stack_a)->previous)
+					ra(&*stack_a);
+			}
+			print_stack(*stack_a);
+			print_stack(*stack_b);
+		}
+		if (last_ordered_element(*stack_a) == *stack_a)
+			break;
 	}
-	else if (target1->index == 1 && target1->s_idx - 1 == target1->previous->s_idx)
+	if (check_sorted(*stack_a))
+		return;
+	if ((*stack_a)->s_idx > (*stack_a)->next->s_idx)
+		sa(*stack_a);
+	ft_printf("a => %p | max-> %p\n", *stack_a, find_target_s_idx(*stack_a, -1));
+	if ((*stack_a) != find_target_s_idx(*stack_a, -1))
+		pb(&*stack_a, &*stack_b);
+	else
 		ra(&*stack_a);
 	print_stack(*stack_a);
 	print_stack(*stack_b);
-	if (!check_sorted(*stack_a))
-		divide_stack(&*stack_a, &*stack_b, size, size -  2);
 }
-
 //./push_swap 3 4 2 1
 void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 {
@@ -211,39 +257,28 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 	max_s_idx = find_max_value(*stack_a, &(*stack_a)->s_idx);
 	size = max_s_idx;
 	// while (1)
-	while (i++ < 15)
+	while (i++ < 4)
 	{
 		if (size > 3)
-			move_sort(&*stack_a, &*stack_b, max_s_idx);
-		middle_sort(&*stack_a, &*stack_b, size);
+			move_2b(&*stack_a, &*stack_b, max_s_idx);
+			// move_sort(&*stack_a, &*stack_b, max_s_idx);
+		if (size <= 3 && !check_sorted(*stack_a))
+			sort_3(&*stack_a, &*stack_b);
+		// middle_sort(&*stack_a, &*stack_b, size);
 		if (!*stack_b && check_sorted(*stack_a))
 		{
 			ft_printf("OK\n");
 			return ;
 		}
-		while(*stack_b != NULL && \
-		check_sorted(*stack_a))
+		while(*stack_b && (*stack_b)->s_idx == (*stack_a)->s_idx - 1)
 		{
 			pa(&*stack_b, &*stack_a);
 		}
 		print_stack(*stack_a);
 		print_stack(*stack_b);
-		// }
-		// else if(size <= 3 && *stack_b == NULL)
-		// 	sort_3(&*stack_a);
-		// print_stack(*stack_a);
-		// else
-		// {
-		// 	if (!check_sorted(*stack_a))
-		// 		operations_stack_a(&*stack_a, &*stack_b, max_s_idx);
-		// 	if (*stack_b != NULL)
-		// 		operations_stack_b(&*stack_b, &*stack_a, max_s_idx);
-		// }
 		size = find_max_value(*stack_a, &(*stack_a)->index);
 		ft_printf("********* i = %d, size = %d || max_sdx = %d\n", i, size, max_s_idx);
 	}
-	// else
-	// 	sorting_algorithm(&*stack_a, &*stack_b);
 }
 // void divide_stack(t_stack **stack_a, t_stack **stack_b, int size, int mid)
 // {

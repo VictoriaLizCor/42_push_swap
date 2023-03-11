@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 11:31:14 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/23 10:20:49 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:25:43 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_printf_upx(t_printf **content, int *ret, int base)
 	if ((*content)->c_spc == 'p')
 		num = (unsigned long)(*content)->ptr;
 	else
-		num = (unsigned int)(*content)->ptr;
+		num = (unsigned long int)(*content)->ptr;
 	str_size = ft_get_strsize(num, base);
 	upx_num = ft_calloc(str_size + 1, sizeof(char));
 	ft_convert2base(upx_num, str_size, base, num);
