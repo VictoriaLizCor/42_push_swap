@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/10 15:33:28 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/13 14:07:21 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,7 +142,7 @@ leaks:
 ran10: $(NAME)
 	@echo "******** RUNNING x:in:N RANDOM NUMBERS  || x = [-2000, 2000] || N = [1, 10]************"
 	$(eval SIZE = $(shell seq 1 10 | sort -R | tail -n 1 | tr '\n' ' '))
-	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
+	$(eval NUMBERS = $(shell seq 1 10 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
 	./push_swap $(NUMBERS)
 	@echo size $(SIZE)
 	@echo "./push_swap $(NUMBERS) | wc -l"

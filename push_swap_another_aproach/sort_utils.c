@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/02/27 11:01:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:25:45 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,18 @@ int	check_sorted_inverse(t_stack *stack)
 	return (1);
 }
 
-int	check_sorted_inverse_value(t_stack *stack)
+int	check_sorted_value(t_stack *stack)
+{
+	while (stack->next != NULL)
+	{
+		if (stack->s_idx > stack->next->s_idx)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+
+int	check_sorted_value_inverse(t_stack *stack)
 {
 	while (stack->next != NULL)
 	{
