@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/14 16:55:59 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/15 14:25:19 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,10 +235,10 @@ void	sort_3(t_stack **stack_a, t_stack **stack_b)
 	if (((*stack_a)->s_idx > (*stack_a)->next->s_idx && target->index > 1) ||\
 	 (target->index == 1 && (*stack_a)->previous->index == 2))
 	{
-		if ((*stack_b) && (*stack_b)->next && \
-		(*stack_b)->s_idx < (*stack_b)->next->s_idx)
-				ss(*stack_a, *stack_b);
-		else
+		// if ((*stack_b) && (*stack_b)->next && \
+		// (*stack_b)->s_idx < (*stack_b)->next->s_idx)
+		// 		ss(*stack_a, *stack_b);
+		// else
 			sa(*stack_a);
 	}
 	else if ((*stack_a)->previous && (*stack_a)->previous->index > 2)
@@ -262,21 +262,72 @@ void push_b(t_stack **stack_a, t_stack **stack_b)
 		sort_3(&*stack_a, &*stack_b);
 }
 
-t_stack *target_stack(t_stack *stack_a, t_stack *stack_b)
+t_stack *target_search(t_stack *s_top, t_stack *s_search, int diff_max, int type)
+{
+	t_stack *target_s;
+	int		search_val;
+	int		top;
+
+	while(s_search)
+	{
+		top = s_search->s_idx;
+		search_val =  s_top->s_idx;
+		if (type < 0)
+		{
+			top = s_top->s_idx;
+			search_val = s_search->s_idx;
+		}	
+		if (top > search_val)
+		{
+			if (diff_max > top - search_val)
+			{
+				diff_max = top - search_val;
+				target_s = s_search;
+			}
+		}
+		s_search = s_search->next;
+	}
+	return (target_s);
+}
+	// 	if (tmp_a->s_idx > stack_b->s_idx)
+	// 	{
+	// 		if (tmp_diff > (tmp_a->s_idx - stack_b->s_idx))
+	// 		{
+	// 			tmp_diff = tmp_a->s_idx - stack_b->s_idx;
+
+t_stack *get_target(t_stack *stack_a, t_stack *stack_b, int diff_max)
 {
 	t_stack *target_a;
 	t_stack *target_b;
-	int		min_a;
-	int		max_a;
 
-	target_a = stack_a;
-	target_b = stack_b;
-	// find_target_s_idx(*stack_a, 1);
-	// if (find_max_value(*stack_a, &(*stack_a)->s_idx))
-	
-	ft_printf("a -> %d , b = %d\n", stack_a->s_idx, stack_b->s_idx);
+	target_a = target_search(stack_b, stack_a, diff_max, 1);
+	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d\n", target_a, target_a->index , target_a->s_idx);
+	target_b = target_search(stack_a, stack_b, diff_max, -1);
+	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d\n", target_b, target_b->index , target_b->s_idx);
 	return (stack_a);
 }
+
+	// t_stack *tmp_a;
+	// t_stack *tmp_b;
+	// int		tmp_diff;
+
+	// tmp_diff = diff_max;
+	// tmp_a = stack_a;
+	// tmp_b = stack_b;
+	// while(tmp_a)
+	// {
+	// 	if (tmp_a->s_idx > stack_b->s_idx)
+	// 	{
+	// 		if (tmp_diff > (tmp_a->s_idx - stack_b->s_idx))
+	// 		{
+	// 			tmp_diff = tmp_a->s_idx - stack_b->s_idx;
+	// 			ft_printf("diff = %d\n", tmp_diff);
+	// 			target_a = tmp_a;
+	// 		}
+	// 	}
+	// 	tmp_a = tmp_a->next;
+	// }
+	
 
 // void move_sort(t_stack **stack_a, t_stack **stack_b)
 // {
@@ -292,8 +343,7 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 	max_s_idx = find_max_value(*stack_a, &(*stack_a)->s_idx);
 	size = max_s_idx;
 	push_b(&*stack_a, &*stack_b);
-	// ft_printf("target -> %p , tar_idx = %d tar_sdx = %d\n", target_stack(*stack_a, *stack_b),\
-	//  target_stack(*stack_a, *stack_b)->index, target_stack(*stack_a, *stack_b)->s_idx);
+	get_target(*stack_a, *stack_b, max_s_idx - 1);
 	print_stack(*stack_a);
 	print_stack(*stack_b);
 	// // while (1)
