@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/15 16:17:13 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:17:34 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,15 +298,11 @@ t_stack *get_target(t_stack *stack_a, t_stack *stack_b, int diff_max)
 
 	ft_printf("size_a = %d| size_b = %d\n", stack_a->previous->index, stack_b->previous->index);
 	target_a = target_search(stack_b, stack_a, diff_max, 1);
-	ft_printf("size = %d\n",stack_a->previous->index - target_a->index);
-	ft_printf("size = %d\n",((stack_a->previous->index + 1) / 2) - target_a->index);
-	ft_printf("mid = %d\n", ((stack_a->previous->index + 1) / 2));
 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d\n", target_a, target_a->index , target_a->s_idx);
 	target_b = target_search(stack_a, stack_b, diff_max, -1);
-	ft_printf("size = %d\n",stack_b->previous->index - target_b->index);
-	ft_printf("size = %d\n",((stack_b->previous->index + 1) / 2) - target_b->index);
-	ft_printf("mid = %d\n", ((stack_b->previous->index + 1) / 2));
 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d\n", target_b, target_b->index , target_b->s_idx);
+	// target_b = target_search(target_a, stack_b, diff_max, -1);
+	// ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d\n", target_b, target_b->index , target_b->s_idx);
 	return (stack_a);
 }
 
