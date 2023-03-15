@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:27:02 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/01 16:09:36 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:34:13 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ void	update_weight(t_stack *stack)
 	if (!stack)
 		return ;
 	tmp = stack;
-	// mid = find_max_value(tmp, &(tmp->s_idx)) / 2 + 1;
-	mid = find_middle(stack);
+	mid = (find_max_value(tmp, &(tmp->index)) + 1)/ 2;
 	while (stack)
 	{
-		if (stack->s_idx >= mid)
-			stack->weight = -1;
+		if (stack->index > mid)
+			stack->weight = (find_max_value(tmp, &(tmp->index)) + 1) - stack->index;
 		else
-			stack->weight = mid - stack->s_idx;
+			stack->weight = stack->index - 1;
 		stack = stack->next;
 	}
 }
