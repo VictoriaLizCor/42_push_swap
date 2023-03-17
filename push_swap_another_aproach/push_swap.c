@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:11:13 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/08 15:28:36 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:10:33 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	fill_stack(t_stack **stack_a, char **argv)
 	t_stack	*new_node;
 	t_stack	*last;
 
-	new_node = (t_stack *)ft_calloc (sizeof(t_stack), 1);
+	new_node = (t_stack *)ft_calloc(sizeof(t_stack), 1);
 	if (!new_node)
 		*stack_a = NULL;
 	new_node->value = ft_atoi(*argv);
@@ -83,12 +83,13 @@ static void	push_swap(char **argv)
 
 	while (*(argv))
 		fill_stack(&stack_a, &(*argv++));
+	// print_stack(stack_a);
 	check_repeated(stack_a);
 	sort_index(stack_a);
-	// show_stack(stack_a, stack_b);
-	print_stack(stack_a);
+	// // show_stack(stack_a, stack_b);
+	// print_stack(stack_a);
 	sorting_algorithm(&stack_a, &stack_b);
-	// show_stack(stack_a, stack_b);
+	// // show_stack(stack_a, stack_b);
 	print_stack(stack_a);
 	print_stack(stack_b);
 }

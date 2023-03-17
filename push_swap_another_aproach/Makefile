@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/30 13:32:36 by lilizarr          #+#    #+#              #
-#    Updated: 2023/03/13 14:07:21 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/17 14:11:23 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -174,7 +174,17 @@ ran50: $(NAME)
 	@echo size $(SIZE)
 	@echo "./push_swap $(NUMBERS) | wc -l"
 	@echo "********************"
-	
+
+ran100: $(NAME)
+	@echo "******** RUNNING TEST ************"
+	$(eval SIZE = $(shell seq 20 50 | sort -R | tail -n 1 | tr '\n' ' '))
+	$(eval NUMBERS = $(shell seq -2000 2000 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
+	./push_swap $(NUMBERS)
+	./push_swap $(NUMBERS) | wc -l
+	@echo size $(SIZE)
+	@echo "./push_swap $(NUMBERS) | wc -l"
+	@echo "********************"
+
 ran500: $(NAME)
 	@echo "******** RUNNING TEST ************"
 	$(eval SIZE = $(shell seq 499 500 | sort -R | tail -n 1 | tr '\n' ' '))

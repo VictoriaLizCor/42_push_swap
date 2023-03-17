@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/13 14:21:36 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:58:52 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,15 @@ void	ss(t_stack *stack_a, t_stack *stack_b)
 	update_weight(stack_b);
 }
 
-// void	do_swap(t_stack *stack_a, t_stack *stack_b)
-// {
-	
-// }
+void	do_swap(t_stack *stack_a, t_stack *stack_b, int type)
+{
+	if (type == 1)
+		sa(stack_a);
+	else if (type == -1)
+		sb(stack_b);
+	else if (type == 0)
+		ss(stack_a, stack_b);
+}
 
 // void	swap_exe(t_stacks_array s_array[2], int i)
 // {

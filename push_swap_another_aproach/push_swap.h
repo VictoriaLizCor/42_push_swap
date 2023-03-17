@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:22:17 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/13 15:36:26 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:49:05 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ s_idx	=	sorted values index
 */
 typedef struct s_stack
 {
-	int				value;
+	long int		value;
 	int				s_idx;
 	int				index;
 	int				weight;
@@ -49,18 +49,16 @@ typedef struct s_sorted
 	struct s_sorted	*next;
 }	t_sorted;
 
-extern int cnt;
-
 /* main */
-void	ft_error(void);
-void	sort_3(t_stack **stack_a, t_stack **stack_b);
+void		ft_error(void);
+void		sort_3(t_stack **stack_a, t_stack **stack_b);
 /* Input verification */
 /* check.c*/
-void	check_integers(char **argv);
-void	check_repeated(t_stack *stack);
+void		check_integers(char **argv);
+void		check_repeated(t_stack *stack);
 /* check_utils.c*/
-int		find_min(t_stack *stack);
-t_stack	*stack_last(t_stack *stack);
+long int	find_min(t_stack *stack);
+t_stack		*stack_last(t_stack *stack);
 /* check_utils2.c*/
 int		find_min_s_idx(t_stack *stack);
 int		find_max_s_idx(t_stack *stack);
@@ -70,14 +68,17 @@ int		find_middle(t_stack *stack);
 void	sa(t_stack *stack);
 void	sb(t_stack *stack);
 void	ss(t_stack *stack_a, t_stack *stack_b);
+void	do_swap(t_stack *stack_a, t_stack *stack_b, int type);
 /* rotate.c */
 void	ra(t_stack **stack);
 void	rb(t_stack **stack);
 void	rr(t_stack **stack_a, t_stack **stack_b);
+void	do_rotate(t_stack **stack_a, t_stack **stack_b, int type);
 /* reverse_rotate.c */
 void	rra(t_stack **stack);
 void	rrb(t_stack **stack);
 void	rrr(t_stack **stack_a, t_stack **stack_b);
+void	do_rrotate(t_stack **stack_a, t_stack **stack_b, int type);
 /* pop_push.c*/
 void	pa(t_stack **stack_b, t_stack **stack_a);
 void	pb(t_stack **stack_a, t_stack **stack_b);

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:32:51 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/21 17:04:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:02:27 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,78 +40,78 @@ typedef struct s_printf
 	const void	*ptr;
 }	t_printf;
 
-int		ft_isascii(int ch);
+int			ft_isascii(int ch);
 /*
 ** Check if a character is from the alphabet , 
 ** ASCII code between [65, 90] && [97, 122]
 */
-int		ft_isprint(int ch);
+int			ft_isprint(int ch);
 /*
 ** The isprint() function tests for any printing character, 
 ** including space (` ').
 ** ASCII code between [32, 126]
 */
-int		ft_isalpha(int ch);
+int			ft_isalpha(int ch);
 /*
 ** Check if a character is from the alphabet , 
 ** ASCII code between [65, 90] && [97, 122]
 */
-int		ft_toupper(int ch);
+int			ft_toupper(int ch);
 /*
 ** Converts a lowercase alphabetic letter to uppercase
 ** ASCII code between [97, 122] to [65, 90]
 */
-int		ft_tolower(int ch);
+int			ft_tolower(int ch);
 /*
 ** Converts a uppercase alphabetic letter to lowercase
 ** ASCII code between [65, 90] to [97, 122]
 */
-int		ft_isdigit(int ch);
+int			ft_isdigit(int ch);
 /*
 ** Check if a character is a digit [0 - 9] , 
 ** ASCII code between [48, 57]
 */
-int		ft_isalnum(int ch);
+int			ft_isalnum(int ch);
 /*
 ** Check if a character is from the alphanumeric, 
 ** ASCII code between [65, 90], [97, 122] && [48, 57]
 */
-size_t	ft_strlen(const char *str);
+size_t		ft_strlen(const char *str);
 /*
 ** Computes the length of the string s before '\0'.
 */
-void	*ft_memset(void *s, int c, size_t n);
+void		*ft_memset(void *s, int c, size_t n);
 /*
 ** The memset() function fills the first n bytes of the 
 ** memory area pointed to by s with the constant byte c 
 ** (converted to an unsigned char.
 */
-void	ft_bzero(void *s, size_t n);
+void		ft_bzero(void *s, size_t n);
 /*
 **  The bzero() function writes n zeroed bytes to the 
 ** string s.  If n is zero, bzero() does nothing.
 */
-int		ft_memcmp(const void *s1, const void *s2, size_t n);
+int			ft_memcmp(const void *s1, const void *s2, size_t n);
 /*
 ** The memcmp() function returns zero if the two strings are
 ** identical, otherwise returns the difference between the 
 ** first two differing bytes
 */
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
 /*
 ** Copies "n" bytes from address "src" to address "dest"
 ** void * memcpy(void *to, const void *from, size_t numBytes); 
 */
-void	*ft_memmove(void *dest, const void *src, size_t n);
+void		*ft_memmove(void *dest, const void *src, size_t n);
 /*
 ** The memmove() function copies len bytes from string src to string dst.
 */
-void	*ft_memchr(const void *s, int c, size_t n);
+void		*ft_memchr(const void *s, int c, size_t n);
 /*
 ** The memchr() function locates the first occurrence of 
 ** c (converted to  an unsigned char) in string s.
 */
-char	*ft_strchr(const char *s, int c);
+char		*ft_strchr(const char *s, int c);
 /*
 ** DESCRIPTION
 ** The strchr() function locates the first occurrence of c (converted to a 
@@ -122,7 +122,7 @@ char	*ft_strchr(const char *s, int c);
 ** The functions strchr() and strrchr() return a pointer to the located
 ** character, or NULL if the character does not appear in the string.
 */
-char	*ft_strrchr(const char *s, int c);
+char		*ft_strrchr(const char *s, int c);
 /*
 ** The strrchr() function locates the last occurrence of c.
 ** RETURN VALUES
@@ -130,7 +130,7 @@ char	*ft_strrchr(const char *s, int c);
 ** located character, or NULL if the character does not appear 
 ** in the string.
 */
-size_t	ft_strlcpy(char *dest, const char *src, size_t n);
+size_t		ft_strlcpy(char *dest, const char *src, size_t n);
 /*
 ** The strlcpy() function copies at most dstsize−1 characters 
 ** (dstsize being the size of the string buffer dst) from src
@@ -141,7 +141,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t n);
 ** they tried to create.  For strlcpy() that means the length
 ** of src.
 */
-size_t	ft_strlcat(char *dest, const char *src, size_t n);
+size_t		ft_strlcat(char *dest, const char *src, size_t n);
 /*
 ** The strlcat() fappends string src to the end of dst.  It 
 ** will append at most dstsize - strlen(dst) - 1 characters.
@@ -157,7 +157,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t n);
 ** If the return value is >= dstsize, the output string has 
 ** been truncated.  It is the caller's responsibility to handle this.
 */
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 /*
 ** DESCRIPTION
 ** The strncmp() functions lexicographically compare the 
@@ -173,7 +173,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 ** The comparison is done using unsigned characters, so that 
 ** `\200' is greater than `\0'.
 */
-char	*ft_strnstr(const char *hs, const char *nd, size_t len);
+char		*ft_strnstr(const char *hs, const char *nd, size_t len);
 /*
 ** DESCRIPTION
 ** The strnstr() function locates the first occurrence of the 
@@ -186,13 +186,13 @@ char	*ft_strnstr(const char *hs, const char *nd, size_t len);
 ** otherwise a pointer to the first character of the first 
 ** occurrence of needle is returned.
 */
-int		ft_atoi(const char *s);
+long int	ft_atoi(const char *s);
 /*
 ** DESCRIPTION
 ** The atoi() function converts the initial portion of the 
 ** string pointed to by str to int representation.
 */
-void	*ft_calloc(size_t count, size_t size);
+void		*ft_calloc(size_t count, size_t size);
 /*
 ** DESCRIPTION
 ** The calloc() function contiguously allocates enough space 
@@ -203,7 +203,7 @@ void	*ft_calloc(size_t count, size_t size);
 ** If successful, it returns a pointer to allocated memory.  If 
 ** there is an error, it returns a NULL pointer.
 */
-char	*ft_strdup(const char *s1);
+char		*ft_strdup(const char *s1);
 /*
 ** DESCRIPTION
 ** The strdup() function allocates sufficient memory for a copy
@@ -214,61 +214,61 @@ char	*ft_strdup(const char *s1);
 ** The strndup() function copies at most n characters from 
 ** the string s1 always NUL terminating the copied string.
 */
-void	ft_putchar_fd(char c, int fd);
+void		ft_putchar_fd(char c, int fd);
 /*
 ** Outputs the character ’c’ to the given file descriptor.
 */
-void	ft_putstr_fd(char *s, int fd);
+void		ft_putstr_fd(char *s, int fd);
 /*
 ** Outputs the string ’s’ to the given file descriptor.
 */
-void	ft_putendl_fd(char *s, int fd);
+void		ft_putendl_fd(char *s, int fd);
 /*
 ** Outputs the string ’s’ to the given file descriptor 
 ** followed by a newline.
 */
-void	ft_putnbr_fd(int n, int fd);
+void		ft_putnbr_fd(int n, int fd);
 /*
 ** Outputs the integer ’n’ to the given file descriptor.
 */
-void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 /*
 ** Applies the function ’f’ on each character of the 
 ** string passed as argument, passing its index as first
 ** argument. Each character is passed by address to ’f’ 
 ** to be modified if necessary.
 */
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 /*
 ** Applies the function ’f’ to each character of the 
 ** string ’s’, and passing its index as first argument 
 ** to create a new string (with malloc(3)) resulting 
 ** from successive applications of ’f’.
 */
-char	*ft_itoa(int n);
+char		*ft_itoa(int n);
 /*
 ** Allocates (with malloc(3)) and returns a string
 ** representing the integer received as an argument.
 ** Negative numbers must be handled.
 */
-char	**ft_split(char const *s, char c);
+char		**ft_split(char const *s, char c);
 /*
 ** Allocates (with malloc(3)) and returns an array of 
 ** strings obtained by splitting ’s’ using the character 
 ** ’c’ as a delimiter. The array must end with a NULL pointer.
 */
-char	*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char const *s1, char const *set);
 /*
 ** Allocates (with malloc(3)) and returns a copy of ’s1’ 
 ** with the characters specified in ’set’ removed from
 ** the beginning and the end of the string.
 */
-char	*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char const *s1, char const *s2);
 /*
 ** Allocates (with malloc(3)) and returns a new string,
 ** which is the result of the concatenation of ’s1’ and ’s2’.
 */
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 /*
 ** Allocates (with malloc(3)) and returns a substring 
 ** from the string ’s’.
@@ -276,27 +276,27 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 */
 
 /****** GET NEXT LINE *******/
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 /* linked list functions*/
 //t_list	*create_empty_list(void);
-void	add_node_to_list(t_list **list, char *new_str, int ret);
-void	free_node_list(void **list);
+void		add_node_to_list(t_list **list, char *new_str, int ret);
+void		free_node_list(void **list);
 /*	libft utils functions	*/
-char	*ft_strjoin_gnl(char const *s1, char const *s2, int free_str);
+char		*ft_strjoin_gnl(char const *s1, char const *s2, int free_str);
 /* Copies n charactarcters from s1 */
-char	*ft_strdup_len(char *s1, size_t n);
-void	search_line(t_list **list, char **line_read);
-void	search_line_ext(t_list **list, char **line, char *ptr);
+char		*ft_strdup_len(char *s1, size_t n);
+void		search_line(t_list **list, char **line_read);
+void		search_line_ext(t_list **list, char **line, char *ptr);
 
 /****** FT_PRINTF *******/
-int		ft_printf(const char *format, ...);
-void	ft_printf_str(t_printf **content, int *ret);
-void	ft_printf_int(t_printf **content, int *ret);
-void	ft_printf_char(t_printf **content, int *ret);
-void	ft_printf_upx(t_printf **content, int *ret, int base);
-int		ft_get_strsize(unsigned long num, int base);
-void	ft_convert2base(char *str, int str_size, int base, unsigned long num);
-void	ft_putstr(char *s);
-void	ft_putchar(char c);
+int			ft_printf(const char *format, ...);
+void		ft_printf_str(t_printf **content, int *ret);
+void		ft_printf_int(t_printf **content, int *ret);
+void		ft_printf_char(t_printf **content, int *ret);
+void		ft_printf_upx(t_printf **content, int *ret, int base);
+int			ft_get_strsize(unsigned long num, int base);
+void		ft_convert2base(char *str, int str_size, int base, unsigned long num);
+void		ft_putstr(char *s);
+void		ft_putchar(char c);
 
 #endif

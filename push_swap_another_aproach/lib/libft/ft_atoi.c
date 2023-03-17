@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:06:44 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/20 15:20:32 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:59:45 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // UINT_MAX					 4,294,967,295
 // LONG_MAX =    9,223,372,036,854,775,807
 // ULLONG_MAX = 18,446,744,073,709,551,615
-static int	max_values(unsigned long long *num, int *sign, char c)
+static long	max_values(long int *num, int *sign, char c)
 {
 	if (*num > LONG_MAX || ft_isdigit(c))
 	{
@@ -29,18 +29,18 @@ static int	max_values(unsigned long long *num, int *sign, char c)
 		else
 			return (0);
 	}
-	return ((int)(*num * *sign));
+	return ((*num * *sign));
 }
 
-int	ft_atoi(const char *s)
+long int	ft_atoi(const char *s)
 {
-	unsigned long long	num;
-	int					sign;
+	long	int num;
+	int			sign;
 
 	num = 0;
 	sign = 1;
 	if (ft_strlen(s) == 0)
-		return ((int)num * sign);
+		return (num * sign);
 	while (*s != '\0' && (ft_isdigit(*s) || ft_strchr(" +-\t\n\r\v\f", *s) != NULL))
 	{	
 		if (num == 0 && *s == '-')
@@ -52,10 +52,12 @@ int	ft_atoi(const char *s)
 				return (max_values(&num, &sign, *(s + 1)));
 		}
 		else if (num > 0)
-			return ((int)num * sign);
+		{
+			return (num * sign);
+		}
 		if ((*s == '+' || *s == '-') && ft_strchr(" +-\t\n\r\v\f", *(s + 1)))
 			return (0);
 		s++;
 	}
-	return ((int)num * sign);
+	return (num * sign);
 }

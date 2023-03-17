@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/07 14:27:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:58:01 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ void	rrr(t_stack **stack_a, t_stack **stack_b)
 	update_weight(*stack_a);
 	update_idx_stack_a(*stack_b);
 	update_weight(*stack_b);
+}
+
+void	do_rrotate(t_stack **stack_a, t_stack **stack_b, int type)
+{
+	if (type == 1)
+		rra(&*stack_a);
+	else if (type == -1)
+		rrb(&*stack_b);
+	else if (type == 0)
+		rrr(&*stack_a, &*stack_b);
 }

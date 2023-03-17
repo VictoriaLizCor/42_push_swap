@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/15 17:17:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:55:55 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,6 @@ t_stack	*find_target_closer(t_stack *stack, int type, int mid)
 	else
 		return (target);
 }
-
-t_stack *last_ordered_element(t_stack *stack)
-{
-	t_stack *tmp_last;
-
-	tmp_last = stack;
-	
-	while (tmp_last->next != NULL)
-	{
-		if (tmp_last->s_idx + 1 != tmp_last->next->s_idx)
-			break;
-		tmp_last = tmp_last->next;
-	}
-	return (tmp_last);
-}
-
 
 void	middle_sort(t_stack **stack_a, t_stack **stack_b, int size)
 {
@@ -248,18 +232,104 @@ void	sort_3(t_stack **stack_a, t_stack **stack_b)
 		else 
 			rra(&*stack_a);
 	}
+}
+
+void push_b(t_stack **stack_a, t_stack **stack_b, int size)
+{
+
+	while((*stack_a)->previous->index > 3)
+	{
+		if ((*stack_a)->s_idx >= (size - 2))
+			ra(&*stack_a);
+		else
+			pb(&*stack_a, &*stack_b);
+	}
+	while (!check_sorted_value(*stack_a))
+		sort_3(&*stack_a, &*stack_b);
 	print_stack(*stack_a);
 	print_stack(*stack_b);
 }
 
-void push_b(t_stack **stack_a, t_stack **stack_b)
+void	move_stacks(t_stack *target, t_stack **stack_a, t_stack **stack_b, int type)
 {
-	while((*stack_a)->previous->index > 3)
-		pb(&*stack_a, &*stack_b);
-	print_stack(*stack_a);
-	print_stack(*stack_b);
-	while (!check_sorted_value(*stack_a))
-		sort_3(&*stack_a, &*stack_b);
+	t_stack *stack;
+	int i = 0;
+	if (type > 0)
+		stack = *stack_a;
+	else if (type < 0)
+		stack = *stack_b;
+	else
+		stack = NULL;
+	// if(find_max_value((*stack_b), &((*stack_b)->index)) == 2)
+	
+	if (target->weight < 0)
+	{
+		while (target->weight != 0)
+			do_rrotate(&*stack_a, &*stack_b, type);
+	}
+	else
+	{
+		while (target->weight != 0)
+			do_rotate(&*stack_a, &*stack_b, type);
+	}
+}
+
+t_stack *get_b(t_stack *target, t_stack **stack_b)
+{
+	t_stack	*tmp;
+	t_stack	*target_b;
+	int		tmp_weight;
+	int 	min;
+
+	if ((*stack_b)->s_idx < target->s_idx && !(*stack_b)->weight)
+		return (*stack_b);
+	else
+	{
+		target_b = *stack_b;
+		tmp = *stack_b;
+		min = (find_max_value(*stack_b, &(*stack_b)->index) + 1) / 2;
+		while(tmp)
+		{
+			tmp_weight = (*stack_b)->weight;
+			 if (tmp_weight < 0)
+			 	tmp_weight = -tmp_weight;
+			if (min > tmp_weight && tmp->s_idx < target->s_idx)
+			{
+				min = tmp_weight;
+				target_b = tmp;
+			}
+		}
+		return (target_b);
+	}
+}
+
+t_stack *get_a(t_stack *target, t_stack **stack_a)
+{
+	t_stack	*tmp;
+	t_stack	*target_b;
+	int		tmp_weight;
+	int 	min;
+
+	if ((*stack_a)->s_idx > target->s_idx && !(*stack_a)->weight)
+		return (*stack_a);
+	else
+	{
+		target_b = *stack_a;
+		tmp = *stack_a;
+		min = (find_max_value(*stack_a, &(*stack_a)->index) + 1) / 2;
+		while(tmp)
+		{
+			tmp_weight = (*stack_a)->weight;
+			 if (tmp_weight < 0)
+			 	tmp_weight = -tmp_weight;
+			if (min > tmp_weight && tmp->s_idx > target->s_idx)
+			{
+				min = tmp_weight;
+				target_b = tmp;
+			}
+		}
+		return (target_b);
+	}
 }
 
 t_stack *target_search(t_stack *s_top, t_stack *s_search, int diff_max, int type)
@@ -291,60 +361,102 @@ t_stack *target_search(t_stack *s_top, t_stack *s_search, int diff_max, int type
 	return (target_s);
 }
 
-t_stack *get_target(t_stack *stack_a, t_stack *stack_b, int diff_max)
+int abs(int val)
+{
+	if (val < 0)
+		val = -val;
+	return (val);
+}
+// check when size a > b
+void	get_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 {
 	t_stack *target_a;
 	t_stack *target_b;
 
-	ft_printf("size_a = %d| size_b = %d\n", stack_a->previous->index, stack_b->previous->index);
-	target_a = target_search(stack_b, stack_a, diff_max, 1);
-	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d\n", target_a, target_a->index , target_a->s_idx);
-	target_b = target_search(stack_a, stack_b, diff_max, -1);
-	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d\n", target_b, target_b->index , target_b->s_idx);
-	// target_b = target_search(target_a, stack_b, diff_max, -1);
-	// ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d\n", target_b, target_b->index , target_b->s_idx);
-	return (stack_a);
+	ft_printf("size_a = %d| size_b = %d\n", (*stack_a)->previous->index, (*stack_b)->previous->index);
+	target_a = target_search(*stack_b, *stack_a, diff_max, 1);
+	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
+	target_b = target_search(*stack_a, *stack_b, diff_max, -1);
+	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
+	printf("w_a = [ %d | %d ] =w_b\n",abs(target_a->weight), abs(target_b->weight));
+	if (abs(target_a->weight) <= abs(target_b->weight))
+	{
+		target_b = get_b(target_a, &*stack_b);
+		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
+	}
+	if (abs(target_a->weight) > abs(target_b->weight))
+	{
+		target_a = target_search(target_b, *stack_a, diff_max, 1);
+		// target_a = get_a(target_b, &*stack_a);
+		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
+	}
+	printf("w_a = [ %d | %d ] =w_b\n",abs(target_a->weight), abs(target_b->weight));
+	if (!target_a->weight && !target_b->weight)
+	{
+		if (target_b->next && target_b->next->s_idx < target_a->s_idx && \
+		target_b->next->s_idx > target_a->previous->s_idx)
+			sb(*stack_b);
+		pa(&*stack_b, &*stack_a);
+	}
+	else if ((target_a->weight > 0 && target_b->weight> 0) || \
+	(target_a->weight < 0 && target_b->weight < 0))
+	{
+		if (abs(target_a->weight) < abs(target_b->weight))
+			move_stacks(target_a, &*stack_a, &*stack_b, 0);
+		else
+			move_stacks(target_b, &*stack_a, &*stack_b, 0);
+		
+	}
+	else 
+	{
+		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
+		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
+		move_stacks(target_a, &*stack_a, &*stack_b, 1);
+		move_stacks(target_b, &*stack_a, &*stack_b, -1);
+	}
+	print_stack(*stack_a);
+	print_stack(*stack_b);
 }
 
-	// t_stack *tmp_a;
-	// t_stack *tmp_b;
-	// int		tmp_diff;
+t_stack *last_ordered(t_stack *stack)
+{
+	t_stack *tmp_last;
 
-	// tmp_diff = diff_max;
-	// tmp_a = stack_a;
-	// tmp_b = stack_b;
-	// while(tmp_a)
-	// {
-	// 	if (tmp_a->s_idx > stack_b->s_idx)
-	// 	{
-	// 		if (tmp_diff > (tmp_a->s_idx - stack_b->s_idx))
-	// 		{
-	// 			tmp_diff = tmp_a->s_idx - stack_b->s_idx;
-	// 			ft_printf("diff = %d\n", tmp_diff);
-	// 			target_a = tmp_a;
-	// 		}
-	// 	}
-	// 	tmp_a = tmp_a->next;
-	// }
-	
-
-// void move_sort(t_stack **stack_a, t_stack **stack_b)
-// {
-	
-// }
+	tmp_last = stack;
+	while (tmp_last)
+	{
+		if (tmp_last->s_idx + 1 != tmp_last->next->s_idx)
+			break;
+		tmp_last = tmp_last->next;
+	}
+	return (tmp_last);
+}
 
 void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 {
 	int	max_s_idx;
 	int	size;
-	int i = 0;
+	int i =0;
 
 	max_s_idx = find_max_value(*stack_a, &(*stack_a)->s_idx);
 	size = max_s_idx;
-	push_b(&*stack_a, &*stack_b);
-	get_target(*stack_a, *stack_b, max_s_idx - 1);
-	print_stack(*stack_a);
-	print_stack(*stack_b);
+	if (size > 1 && !check_sorted(*stack_a))
+	{
+		push_b(&*stack_a, &*stack_b, max_s_idx);
+		if (*stack_b)
+			pa(&*stack_b, &*stack_a);
+		print_stack(*stack_a);
+		print_stack(*stack_b);
+		// while (*stack_b)
+		while (*stack_b && i++ < 20)
+			get_target(&*stack_a, &*stack_b, max_s_idx - 1);
+	}
+	if (!check_sorted(*stack_a))
+		move_stacks(last_ordered(*stack_a)->next, &*stack_a, &*stack_b, 1);
+	if (!*stack_b && check_sorted(*stack_a))
+		ft_printf("OK\n");
+}
+
 	// // while (1)
 	// while (i++ < 4 && !check_sorted(*stack_a))
 	// {
@@ -380,12 +492,6 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 	// 	size = find_max_value(*stack_a, &(*stack_a)->index);
 	// 	ft_printf("********* i = %d, size = %d || max_sdx = %d\n", i, size, max_s_idx);
 	// }
-	if (!*stack_b && check_sorted(*stack_a))
-	{
-		ft_printf("OK\n");
-		return ;
-	}
-}
 // void divide_stack(t_stack **stack_a, t_stack **stack_b, int size, int mid)
 // {
 // 	t_stack	*target;

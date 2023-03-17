@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:20:10 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/08 11:12:26 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:36:58 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_stack(t_stack *list)
 	ft_printf("Value ||  Idx  || S_Idx || Weight ||\t     current      ||     previous      ||   next\n");
 	while (print && i < 10)
 	{
-		ft_printf("%d  ||   %d  ||   %d   ||  %d   ||    %p   ||    %p   ||%p \n", \
+		printf("%ld  ||   %d  ||   %d   ||  %d   ||    %p   ||    %p   ||%p \n", \
 		print->value, print->index, print->s_idx, print->weight, \
 		print, print->previous, print->next);
 		print = print->next;

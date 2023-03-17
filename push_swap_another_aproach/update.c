@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:27:02 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/15 16:34:13 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:50:34 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	update_weight(t_stack *stack)
 {
 	t_stack	*tmp;
-	int		mid;
+	int		size;
 
 	if (!stack)
 		return ;
 	tmp = stack;
-	mid = (find_max_value(tmp, &(tmp->index)) + 1)/ 2;
+	size = find_max_value(tmp, &(tmp->index)) + 1;
 	while (stack)
 	{
-		if (stack->index > mid)
-			stack->weight = (find_max_value(tmp, &(tmp->index)) + 1) - stack->index;
+		if (stack->index > size / 2)
+			stack->weight = stack->index - size;
 		else
 			stack->weight = stack->index - 1;
 		stack = stack->next;
