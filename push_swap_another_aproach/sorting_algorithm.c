@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/17 16:55:55 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:00:39 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,10 +219,10 @@ void	sort_3(t_stack **stack_a, t_stack **stack_b)
 	if (((*stack_a)->s_idx > (*stack_a)->next->s_idx && target->index > 1) ||\
 	 (target->index == 1 && (*stack_a)->previous->index == 2))
 	{
-		// if ((*stack_b) && (*stack_b)->next && \
-		// (*stack_b)->s_idx < (*stack_b)->next->s_idx)
-		// 		ss(*stack_a, *stack_b);
-		// else
+		if ((*stack_b) && (*stack_b)->next && \
+		(*stack_b)->s_idx < (*stack_b)->next->s_idx)
+				ss(*stack_a, *stack_b);
+		else
 			sa(*stack_a);
 	}
 	else if ((*stack_a)->previous && (*stack_a)->previous->index > 2)
