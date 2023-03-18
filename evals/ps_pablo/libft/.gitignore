@@ -1,0 +1,8 @@
+**/desktop.ini
+desktop.ini
+notes.txt
+.vscode/
+a.out.dSYM/
+Tester*/
+.DS_Store
+**/.DS_Store
