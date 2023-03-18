@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/18 15:43:28 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:44:34 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	check_integers(char **argv)
 
 	while (*argv)
 	{
-		if (ft_atoi(*argv) > INT_MAX || ft_atoi(*argv) < INT_MIN)
-			ft_error();
 		if (!ft_strlen(*argv))
+			ft_error();
+		if (ft_atoi(*argv) > INT_MAX || ft_atoi(*argv) < INT_MIN)
 			ft_error();
 		copy = *(argv);
 		if (ft_strchr("+-", *copy) || ft_isdigit(*copy))
@@ -46,6 +46,8 @@ void	check_repeated(t_stack *stack)
 		copy = stack->next;
 		while (copy)
 		{
+			if (copy->value > INT_MAX || copy->value < INT_MIN)
+				ft_error();
 			if (copy->value == stack->value)
 				ft_error();
 			copy = copy->next;

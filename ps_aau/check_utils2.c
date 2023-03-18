@@ -1,55 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/18 15:43:28 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:22:30 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_integers(char **argv)
+int	find_min_s_idx(t_stack *tmp)
 {
-	char	*copy;
+	t_stack	*stack;
+	int		min;
 
-	while (*argv)
+	stack = tmp;
+	min = stack->s_idx;
+	while (stack)
 	{
-		if (ft_atoi(*argv) > INT_MAX || ft_atoi(*argv) < INT_MIN)
-			ft_error();
-		if (!ft_strlen(*argv))
-			ft_error();
-		copy = *(argv);
-		if (ft_strchr("+-", *copy) || ft_isdigit(*copy))
-			copy++;
-		while (*copy && ft_isdigit(*copy))
-			copy++;
-		if (!ft_isdigit(*copy))
-		{
-			if (!*copy && !ft_strchr("+-", *(copy - 1)))
-				argv++;
-			else
-				ft_error();
-		}
-	}
-}
-
-void	check_repeated(t_stack *stack)
-{
-	t_stack	*copy;
-
-	while (stack->next)
-	{
-		copy = stack->next;
-		while (copy)
-		{
-			if (copy->value == stack->value)
-				ft_error();
-			copy = copy->next;
-		}
+		if (min > stack->s_idx)
+			min = stack->s_idx;
 		stack = stack->next;
 	}
+	return (min);
+}
+
+int	find_max_s_idx(t_stack *tmp)
+{
+	t_stack	*stack;
+	int		max;
+
+	stack = tmp;
+
+	max = stack->s_idx;
+	while (stack)
+	{
+		if (max < stack->s_idx)
+			max = stack->s_idx;
+		stack = stack->next;
+	}
+	return (max);
+}
+
+int	find_middle(t_stack *stack)
+{
+	int	mid;
+	int	max;
+	int	min;
+	
+	min = find_min_s_idx(stack);
+	max = find_max_s_idx(stack);
+	mid = (min + max) / 2;
+	return (mid);
 }

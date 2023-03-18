@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:11:13 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/18 15:41:22 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:45:17 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,32 +83,10 @@ static void	push_swap(char **argv)
 
 	while (*(argv))
 		fill_stack(&stack_a, &(*argv++));
-	// print_stack(stack_a);
 	check_repeated(stack_a);
 	sort_index(stack_a);
-	// // show_stack(stack_a, stack_b);
-	// print_stack(stack_a);
 	sorting_algorithm(&stack_a, &stack_b);
-	// // show_stack(stack_a, stack_b);
-	print_stack(stack_a);
-	print_stack(stack_b);
 }
-	// printf("array content | \t\t%p\n", *(t_stack **)(s_array[0].stack));
-	// 	printf("array content | \t\t%p\n", t_stacks_array st[2]);
-	// pb(&stack_a, &stack_b);
-	// show_stack(stack_a, stack_b);
-	// print_stack(stack_a);
-	// print_stack(stack_b);
-	// pb(&stack_a, &stack_b);
-	// show_stack(stack_a, stack_b);
-	// print_stack(stack_a);
-	// print_stack(stack_b);
-
-	// printf("min value idx = %d \n", find_min_value(stack_a, &stack_a->s_idx));
-	// printf("max value idx = %d \n", find_max_value(stack_a, &stack_a->s_idx));
-//free((void *)stack_a);
-// free_node_stack((void *)stack_a);
-
 /* 
 In case of error, it must display "Error" followed by a ’\n’ on the standard 
 error. Errors include for example: some 
@@ -121,17 +99,8 @@ int	main(int argc, char **argv)
 {
 	if (argc < 2)
 		exit(0);
-	// if(argc >= 2)
-	ft_printf("\n size = %d\t\n|", argc);
 	check_integers(++argv);
 	push_swap(argv);
-	ft_printf("\n size = %d\t./push_swap", argc - 1);
-	while (*argv)
-	{
-		ft_printf(" %s ", *argv);
-		argv++;
-	}
-	ft_printf("\n\n");
 	exit(EXIT_SUCCESS);
 }
 
