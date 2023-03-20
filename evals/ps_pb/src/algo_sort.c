@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pandalaf <pandalaf@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:48:10 by pandalaf          #+#    #+#             */
-/*   Updated: 2022/11/03 12:41:55 by pandalaf         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:50:21 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 void	initial_push_to_b(t_stack *stack_a, t_stack *stack_b)
 {
 	while (stack_a->nodecount != 3)
-		push_b(stack_a, stack_b);
+	{
+		// if (stack_index_min(stack_a)->pos <= stack_a->nodecount -2)
+		// 	rotate_a(stack_a);
+		// else
+			push_b(stack_a, stack_b);
+	}
 }
 
 //Function sorts 3 elements. (Very defined sorting case). Intended for stack a.

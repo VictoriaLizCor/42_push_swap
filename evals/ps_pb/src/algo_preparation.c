@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_preparation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pandalaf <pandalaf@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:53:52 by pandalaf          #+#    #+#             */
-/*   Updated: 2022/11/03 12:18:49 by pandalaf         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:57:10 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,6 @@ void	costing(t_stack *stack_a, t_stack *stack_b)
 			break ;
 		tempb = tempb->next;
 	}
+	print_stack(stack_a);
+	print_stack(stack_b);
 }

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/18 18:00:39 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:43:28 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ t_stack *get_a(t_stack *target, t_stack **stack_a)
 	t_stack	*tmp;
 	t_stack	*target_b;
 	int		tmp_weight;
-	int 	min;
+	int 	max;
 
 	if ((*stack_a)->s_idx > target->s_idx && !(*stack_a)->weight)
 		return (*stack_a);
@@ -316,15 +316,13 @@ t_stack *get_a(t_stack *target, t_stack **stack_a)
 	{
 		target_b = *stack_a;
 		tmp = *stack_a;
-		min = (find_max_value(*stack_a, &(*stack_a)->index) + 1) / 2;
+		max = (find_max_value(*stack_a, &(*stack_a)->index) + 1) / 2;
 		while(tmp)
 		{
 			tmp_weight = (*stack_a)->weight;
-			 if (tmp_weight < 0)
-			 	tmp_weight = -tmp_weight;
-			if (min > tmp_weight && tmp->s_idx > target->s_idx)
+			if (max > abs(tmp_weight) && tmp->s_idx > target->s_idx)
 			{
-				min = tmp_weight;
+				max = tmp_weight;
 				target_b = tmp;
 			}
 		}
@@ -332,33 +330,67 @@ t_stack *get_a(t_stack *target, t_stack **stack_a)
 	}
 }
 
-t_stack *target_search(t_stack *s_top, t_stack *s_search, int diff_max, int type)
-{
-	t_stack *target_s;
-	int		search_val;
-	int		top;
+// target_a->previous->s_idx > target_a->s_idx
+// t_stack *target_search(t_stack *s_top, t_stack *s_search, int diff_max, int type)
+// {
+// 	t_stack *target_s;
+// 	int		search_val;
+// 	int		top;
 
-	target_s = s_search;
-	while(s_search)
+// 	target_s = s_search;
+// 	while(s_search)
+// 	{
+// 		top = s_search->s_idx;
+// 		search_val =  s_top->s_idx;
+// 		if (type < 0)
+// 		{
+// 			top = s_top->s_idx;
+// 			search_val = s_search->s_idx;
+// 		}	
+// 		if (top > search_val)
+// 		{
+// 			if (diff_max > top - search_val)
+// 			{
+// 				diff_max = top - search_val;
+// 				target_s = s_search;
+// 			}
+// 		}
+// 		s_search = s_search->next;
+// 	}
+// 	return (target_s);
+// }
+
+void target_search(t_stack *stack_a, t_stack *stack_b, t_targets *targets, int diff_max)
+{
+	t_stack *tmp_a;
+	t_stack *tmp_b;
+	int		min_moves;
+	int		prev;
+
+	min_moves = diff_max;
+	tmp_a = stack_a;
+	tmp_b = stack_b;
+	while(tmp_a)
 	{
-		top = s_search->s_idx;
-		search_val =  s_top->s_idx;
-		if (type < 0)
+		tmp_b = stack_b;
+		while(tmp_b)
 		{
-			top = s_top->s_idx;
-			search_val = s_search->s_idx;
-		}	
-		if (top > search_val)
-		{
-			if (diff_max > top - search_val)
+			prev = tmp_a->previous->s_idx;
+			if (prev > tmp_a->s_idx)
+				prev = 0;
+			if (tmp_a->s_idx > tmp_b->s_idx && tmp_b->s_idx > prev)
 			{
-				diff_max = top - search_val;
-				target_s = s_search;
+				if (abs(tmp_a->weight) + abs(tmp_b->weight) < min_moves)
+				{
+					min_moves = abs(tmp_a->weight) + abs(tmp_b->weight);
+					targets->a = tmp_a;
+					targets->b = tmp_b;
+				}
 			}
+			tmp_b = tmp_b->next;
 		}
-		s_search = s_search->next;
+		tmp_a = tmp_a->next;
 	}
-	return (target_s);
 }
 
 int abs(int val)
@@ -367,56 +399,92 @@ int abs(int val)
 		val = -val;
 	return (val);
 }
-// check when size a > b
+
 void	get_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 {
-	t_stack *target_a;
-	t_stack *target_b;
+	static	t_targets	targets;
 
 	ft_printf("size_a = %d| size_b = %d\n", (*stack_a)->previous->index, (*stack_b)->previous->index);
-	target_a = target_search(*stack_b, *stack_a, diff_max, 1);
-	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
-	target_b = target_search(*stack_a, *stack_b, diff_max, -1);
-	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
-	printf("w_a = [ %d | %d ] =w_b\n",abs(target_a->weight), abs(target_b->weight));
-	if (abs(target_a->weight) <= abs(target_b->weight))
-	{
-		target_b = get_b(target_a, &*stack_b);
-		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
-	}
-	if (abs(target_a->weight) > abs(target_b->weight))
-	{
-		target_a = target_search(target_b, *stack_a, diff_max, 1);
-		// target_a = get_a(target_b, &*stack_a);
-		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
-	}
-	printf("w_a = [ %d | %d ] =w_b\n",abs(target_a->weight), abs(target_b->weight));
-	if (!target_a->weight && !target_b->weight)
-	{
-		if (target_b->next && target_b->next->s_idx < target_a->s_idx && \
-		target_b->next->s_idx > target_a->previous->s_idx)
-			sb(*stack_b);
-		pa(&*stack_b, &*stack_a);
-	}
-	else if ((target_a->weight > 0 && target_b->weight> 0) || \
-	(target_a->weight < 0 && target_b->weight < 0))
-	{
-		if (abs(target_a->weight) < abs(target_b->weight))
-			move_stacks(target_a, &*stack_a, &*stack_b, 0);
-		else
-			move_stacks(target_b, &*stack_a, &*stack_b, 0);
+	target_search(*stack_a, *stack_b, &targets, diff_max);
+	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets.a, (targets.a)->index , (targets.a)->s_idx, (targets.a)->weight);
+	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets.b, (targets.b)->index , (targets.b)->s_idx, (targets.b)->weight);
+	// printf("w_a = [ %d | %d ] =w_b\n",abs((targets->a)->weight), abs((targets->a)->weight));
+
+	// if (!(targets->a)->weight && !(targets->b)->weight)
+	// {
+	// 	if ((targets->b)->next && (targets->b)->next->s_idx < (targets->a)->s_idx && \
+	// 	(targets->a)->previous->s_idx > (targets->a)->s_idx)
+	// 		sb(*stack_b);
+	// 	pa(&*stack_b, &*stack_a);
+	// }
+	// else if (((targets->a)->weight > 0 && (targets->b)->weight> 0) || \
+	// ((targets->a)->weight < 0 && (targets->b)->weight < 0))
+	// {
+	// 	if (abs((targets->a)->weight) < abs((targets->b)->weight))
+	// 		move_stacks(targets->a, &*stack_a, &*stack_b, 0);
+	// 	else
+	// 		move_stacks(targets->b, &*stack_a, &*stack_b, 0);
 		
-	}
-	else 
-	{
-		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
-		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
-		move_stacks(target_a, &*stack_a, &*stack_b, 1);
-		move_stacks(target_b, &*stack_a, &*stack_b, -1);
-	}
+	// }
+	// else 
+	// {
+	// 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets->a, (targets->a)->index , (targets->a)->s_idx, (targets->a)->weight);
+	// 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets->b, (targets->b)->index , (targets->b)->s_idx, (targets->b)->weight);
+	// 	move_stacks(targets->a, &*stack_a, &*stack_b, 1);
+	// 	move_stacks(targets->b, &*stack_a, &*stack_b, -1);
+	// }
 	print_stack(*stack_a);
 	print_stack(*stack_b);
 }
+// void	get_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
+// {
+// 	t_stack *target_a;
+// 	t_stack *target_b;
+
+// 	ft_printf("size_a = %d| size_b = %d\n", (*stack_a)->previous->index, (*stack_b)->previous->index);
+// 	target_a = target_search(*stack_b, *stack_a, diff_max, 1);
+// 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
+// 	target_b = target_search(*stack_a, *stack_b, diff_max, -1);
+// 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
+// 	printf("w_a = [ %d | %d ] =w_b\n",abs(target_a->weight), abs(target_b->weight));
+// 	if (abs(target_a->weight) <= abs(target_b->weight))
+// 	{
+// 		target_b = get_b(target_a, &*stack_b);
+// 		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
+// 	}
+// 	if (abs(target_a->weight) > abs(target_b->weight))
+// 	{
+// 		target_a = target_search(target_b, *stack_a, diff_max, 1);
+// 		// target_a = get_a(target_b, &*stack_a);
+// 		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
+// 	}
+// 	printf("w_a = [ %d | %d ] =w_b\n",abs(target_a->weight), abs(target_b->weight));
+// 	if (!target_a->weight && !target_b->weight)
+// 	{
+// 		if (target_b->next && target_b->next->s_idx < target_a->s_idx && \
+// 		target_a->previous->s_idx > target_a->s_idx)
+// 			sb(*stack_b);
+// 		pa(&*stack_b, &*stack_a);
+// 	}
+// 	else if ((target_a->weight > 0 && target_b->weight> 0) || \
+// 	(target_a->weight < 0 && target_b->weight < 0))
+// 	{
+// 		if (abs(target_a->weight) < abs(target_b->weight))
+// 			move_stacks(target_a, &*stack_a, &*stack_b, 0);
+// 		else
+// 			move_stacks(target_b, &*stack_a, &*stack_b, 0);
+		
+// 	}
+// 	else 
+// 	{
+// 		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", target_a, target_a->index , target_a->s_idx, target_a->weight);
+// 		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, b_weigth = %d\n", target_b, target_b->index , target_b->s_idx, target_b->weight);
+// 		move_stacks(target_a, &*stack_a, &*stack_b, 1);
+// 		move_stacks(target_b, &*stack_a, &*stack_b, -1);
+// 	}
+// 	print_stack(*stack_a);
+// 	print_stack(*stack_b);
+// }
 
 t_stack *last_ordered(t_stack *stack)
 {
@@ -448,7 +516,7 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 		print_stack(*stack_a);
 		print_stack(*stack_b);
 		// while (*stack_b)
-		while (*stack_b && i++ < 20)
+		while (*stack_b && i++ < 10)
 			get_target(&*stack_a, &*stack_b, max_s_idx - 1);
 	}
 	if (!check_sorted(*stack_a))

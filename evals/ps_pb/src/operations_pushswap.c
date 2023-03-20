@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations_pushswap.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pandalaf <pandalaf@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:28:36 by pandalaf          #+#    #+#             */
-/*   Updated: 2023/03/11 15:43:25 by lilizarr         ###   ########.fr       */
+/*   Updated: 2022/10/21 03:41:38 by pandalaf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	push_a(t_stack *st_a, t_stack *st_b)
 	push(node, st_a);
 	pop(st_b);
 	ft_printf("pa\n");
-	stack_display_full(st_a);
 	free(node);
 }
 
@@ -51,7 +50,6 @@ void	push_b(t_stack *st_a, t_stack *st_b)
 	push(node, st_b);
 	pop(st_a);
 	ft_printf("pb\n");
-	stack_display_full(st_b);
 	free(node);
 }
 
@@ -62,7 +60,6 @@ void	swap_a(t_stack *st_a)
 		return ;
 	swap(st_a);
 	ft_printf("sa\n");
-	stack_display_full(st_a);
 }
 
 //Function swaps the first two elements on a stack b.
@@ -72,7 +69,6 @@ void	swap_b(t_stack *st_b)
 		return ;
 	swap(st_b);
 	ft_printf("sb\n");
-	stack_display_full(st_b);
 }
 
 //Function swaps the first two elements of each of two stacks a and b.
@@ -85,6 +81,4 @@ void	swap_ab(t_stack *st_a, t_stack *st_b)
 	swap(st_a);
 	swap(st_b);
 	ft_printf("ss\n");
-	stack_display_full(st_a);
-	stack_display_full(st_b);
 }

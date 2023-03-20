@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pandalaf <pandalaf@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 04:05:16 by pandalaf          #+#    #+#             */
-/*   Updated: 2022/10/31 13:39:23 by pandalaf         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:57:29 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,18 @@ void	perform_operations(t_stack *stack_a, t_stack *stack_b)
 	cost_a_cp = (int *)malloc(sizeof(int));
 	*cost_a_cp = node->cost_a;
 	*cost_b_cp = node->cost_b;
+	ft_printf("\n cost_a = %d \t | \t cost_b = %d \n", node->cost_a, node->cost_b);
 	if (*cost_a_cp < 0 && *cost_b_cp < 0)
 		opt_rev_rotate_ab(stack_a, stack_b, cost_a_cp, cost_b_cp);
 	else if (*cost_a_cp > 0 && *cost_b_cp > 0)
 		opt_rotate_ab(stack_a, stack_b, cost_a_cp, cost_b_cp);
 	opt_rotate_a(stack_a, cost_a_cp);
 	opt_rotate_b(stack_b, cost_b_cp);
+	print_stack(stack_a);
+	print_stack(stack_b);
 	push_a(stack_a, stack_b);
+	print_stack(stack_a);
+	print_stack(stack_b);
 	free(cost_a_cp);
 	free(cost_b_cp);
 }

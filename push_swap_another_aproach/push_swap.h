@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:22:17 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/18 15:40:38 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:33:02 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@
 
 // # define GET_VAR_NAME(VAR_NAME) #VAR_NAME
 /*
-value	=	input data
+value	=	input data;
+s_idx	=	sorted values index;
 index	=	stack array;
 weight	=	idx - value;
-head	=	first stack element
-tail	=	last stack element
-s_idx	=	sorted values index
 */
 typedef struct s_stack
 {
@@ -37,17 +35,11 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-typedef struct s_stacks_array
+typedef struct s_targets
 {
-	const void	*stack;
-	char		c_type;
-}	t_stacks_array;
-
-typedef struct s_sorted
-{
-	t_stack			*head_sorted;
-	struct s_sorted	*next;
-}	t_sorted;
+	t_stack		*a;
+	t_stack		*b;
+}	t_targets;
 
 /* main */
 void		ft_error(void);

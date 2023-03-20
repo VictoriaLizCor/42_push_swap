@@ -6,7 +6,7 @@
 #    By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 23:15:27 by pandalaf          #+#    #+#              #
-#    Updated: 2023/03/11 15:04:35 by lilizarr         ###   ########.fr        #
+#    Updated: 2023/03/09 16:38:22 by lilizarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,8 +68,26 @@ re: fclean all
 
 ran10: $(NAME)
 	@echo "******** RUNNING x:in:N RANDOM NUMBERS  || x = [-2000, 2000] || N = [1, 10]************"
-	$(eval SIZE = $(shell seq 1 10 | sort -R | tail -n 1 | tr '\n' ' '))
-	$(eval NUMBERS = $(shell seq 1 10 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
+	$(eval SIZE = $(shell seq 10 20 | sort -R | tail -n 1 | tr '\n' ' '))
+	$(eval NUMBERS = $(shell seq 1 20 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
+	./push_swap $(NUMBERS)
+	@echo size $(SIZE)
+	@echo "./push_swap $(NUMBERS) | wc -l"
+	@echo "********************"
+
+ran50: $(NAME)
+	@echo "******** RUNNING x:in:N RANDOM NUMBERS  || x = [-2000, 2000] || N = [1, 10]************"
+	$(eval SIZE = $(shell seq 20 50 | sort -R | tail -n 1 | tr '\n' ' '))
+	$(eval NUMBERS = $(shell seq 1 50 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
+	./push_swap $(NUMBERS)
+	@echo size $(SIZE)
+	@echo "./push_swap $(NUMBERS) | wc -l"
+	@echo "********************"
+
+ran100: $(NAME)
+	@echo "******** RUNNING x:in:N RANDOM NUMBERS  || x = [-2000, 2000] || N = [1, 10]************"
+	$(eval SIZE = $(shell seq 20 50 | sort -R | tail -n 1 | tr '\n' ' '))
+	$(eval NUMBERS = $(shell seq 1 100 | sort -R | tail -n $(SIZE) | tr '\n' ' '))
 	./push_swap $(NUMBERS)
 	@echo size $(SIZE)
 	@echo "./push_swap $(NUMBERS) | wc -l"

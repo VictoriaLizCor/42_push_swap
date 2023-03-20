@@ -6,14 +6,14 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 10:20:23 by pandalaf          #+#    #+#             */
-/*   Updated: 2023/03/11 15:19:51 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:46:02 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 # include "./libft/libft.h"
-# include <stdio.h>
+#include <stdio.h>
 
 typedef struct s_node
 {
@@ -35,8 +35,6 @@ typedef struct s_stack
 	t_node	*top;
 }			t_stack;
 
-
-void	stack_display_full(t_stack *stack);
 // INPUT CLEANERS
 //Function converts a character array to one compatible with ft_split output.
 char	**splitise(char **argv, int argc);
@@ -175,4 +173,6 @@ void	free_stack(t_stack *stack);
 //Function displays error message on standard error.
 int		display_error(void);
 
+void	stack_display_full(t_stack *stack);
+void	print_stack(t_stack *list);
 #endif
