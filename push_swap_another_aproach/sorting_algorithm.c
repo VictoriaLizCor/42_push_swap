@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/20 15:43:28 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:55:15 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,31 +408,31 @@ void	get_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 	target_search(*stack_a, *stack_b, &targets, diff_max);
 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets.a, (targets.a)->index , (targets.a)->s_idx, (targets.a)->weight);
 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets.b, (targets.b)->index , (targets.b)->s_idx, (targets.b)->weight);
-	// printf("w_a = [ %d | %d ] =w_b\n",abs((targets->a)->weight), abs((targets->a)->weight));
+	printf("w_a = [ %d | %d ] =w_b\n",abs((targets.a)->weight), abs((targets.b)->weight));
 
-	// if (!(targets->a)->weight && !(targets->b)->weight)
-	// {
-	// 	if ((targets->b)->next && (targets->b)->next->s_idx < (targets->a)->s_idx && \
-	// 	(targets->a)->previous->s_idx > (targets->a)->s_idx)
-	// 		sb(*stack_b);
-	// 	pa(&*stack_b, &*stack_a);
-	// }
-	// else if (((targets->a)->weight > 0 && (targets->b)->weight> 0) || \
-	// ((targets->a)->weight < 0 && (targets->b)->weight < 0))
-	// {
-	// 	if (abs((targets->a)->weight) < abs((targets->b)->weight))
-	// 		move_stacks(targets->a, &*stack_a, &*stack_b, 0);
-	// 	else
-	// 		move_stacks(targets->b, &*stack_a, &*stack_b, 0);
+	if (!(targets.a)->weight && !(targets.b)->weight)
+	{
+		if ((targets.b)->next && (targets.b)->next->s_idx < (targets.a)->s_idx && \
+		(targets.a)->previous->s_idx > (targets.a)->s_idx)
+			sb(*stack_b);
+		pa(&*stack_b, &*stack_a);
+	}
+	else if (((targets.a)->weight > 0 && (targets.b)->weight> 0) || \
+	((targets.a)->weight < 0 && (targets.b)->weight < 0))
+	{
+		if (abs((targets.a)->weight) < abs((targets.b)->weight))
+			move_stacks(targets.a, &*stack_a, &*stack_b, 0);
+		else
+			move_stacks(targets.b, &*stack_a, &*stack_b, 0);
 		
-	// }
-	// else 
-	// {
-	// 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets->a, (targets->a)->index , (targets->a)->s_idx, (targets->a)->weight);
-	// 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets->b, (targets->b)->index , (targets->b)->s_idx, (targets->b)->weight);
-	// 	move_stacks(targets->a, &*stack_a, &*stack_b, 1);
-	// 	move_stacks(targets->b, &*stack_a, &*stack_b, -1);
-	// }
+	}
+	else 
+	{
+		ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets.a, (targets.a)->index , (targets.a)->s_idx, (targets.a)->weight);
+		ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets.b, (targets.b)->index , (targets.b)->s_idx, (targets.b)->weight);
+		move_stacks(targets.a, &*stack_a, &*stack_b, 1);
+		move_stacks(targets.b, &*stack_a, &*stack_b, -1);
+	}
 	print_stack(*stack_a);
 	print_stack(*stack_b);
 }
@@ -519,8 +519,8 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 		while (*stack_b && i++ < 10)
 			get_target(&*stack_a, &*stack_b, max_s_idx - 1);
 	}
-	if (!check_sorted(*stack_a))
-		move_stacks(last_ordered(*stack_a)->next, &*stack_a, &*stack_b, 1);
+	// if (!check_sorted(*stack_a))
+	// 	move_stacks(last_ordered(*stack_a)->next, &*stack_a, &*stack_b, 1);
 	if (!*stack_b && check_sorted(*stack_a))
 		ft_printf("OK\n");
 }
