@@ -6,52 +6,47 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 12:11:13 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/18 15:45:17 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:41:39 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//seq -1000 2000 | sort -R | tail -n 1000 | tr '\n' ' '
 #include "push_swap.h"
-/***** Grading 5 points
-3 numbers <= 3 moves,
-5 numbers <= 12 moves, 
-100 numbers <= 700 moves
-500 numbers <= 5500
+
+/*
+** Grading 5 points
+** 3 numbers <= 3 moves,
+** 5 numbers <= 12 moves,
+** 100 numbers <= 700 moves
+** 500 numbers <= 5500
+**
+** **** Rules
+** non_repetive number to stack -> error if found
+** +/- numbers allowed
+** INT_MIN < numbers < INT_MAX
+** Stack_A -> initialized with random numbers
+** Stack_B -> empty
+**
+** **** Instructions
+** sa  / sb  / ss
+** ra  / rb  / rr
+** rra / rrb / rrr
+** pa 	/ pb
+**
+** In case of error, it must display "Error" followed by a ’\n’ on the standard
+** error. Errors include for example: some
+** arguments aren’t integers, some arguments
+** are bigger than an integer and/or there are
+** duplicates
 */
 
-/****** Rules
-non_repetive number to stack -> error if found
-+/- numbers allowed
-INT_MIN < numbers < INT_MAX
-Stack_A -> initialized with random numbers
-Stack -> empty
-sort in ascending order 
-*/
-
-/****** Instructions 
-sa  / sb  / ss
-ra  / rb  / rr
-rra / rrb / rrr
-pa 	/ pb
-*/
-
-// static void	free_node_stack(void **list)
-// {
-// 	t_stack	*tmp;
-// 	t_stack	*to_erase;
-// 	int		i;
-
-// 	i = 0;
-// 	to_erase = *list;
-// 	tmp = to_erase->next;
-// 	free(to_erase);
-// 	*list = tmp;
-// }
-
-void	ft_error(void)
+t_stack	*stack_last(t_stack *stack)
 {
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	t_stack	*last;
+
+	last = stack;
+	while (last->next)
+		last = last->next;
+	return (last);
 }
 
 static void	fill_stack(t_stack **stack_a, char **argv)
@@ -73,7 +68,7 @@ static void	fill_stack(t_stack **stack_a, char **argv)
 		if (!(*(argv + 1)))
 			(*stack_a)->previous = new_node;
 	}
-	update_idx_stack_a(*stack_a);
+	update_idx_stack(*stack_a);
 }
 
 static void	push_swap(char **argv)
@@ -87,13 +82,6 @@ static void	push_swap(char **argv)
 	sort_index(stack_a);
 	sorting_algorithm(&stack_a, &stack_b);
 }
-/* 
-In case of error, it must display "Error" followed by a ’\n’ on the standard 
-error. Errors include for example: some 
-arguments aren’t integers, some arguments 
-are bigger than an integer and/or there are 
-duplicates.
-*/
 
 int	main(int argc, char **argv)
 {
@@ -103,31 +91,3 @@ int	main(int argc, char **argv)
 	push_swap(argv);
 	exit(EXIT_SUCCESS);
 }
-
-/*
-  min			max
-  ||			||	
-  max			min
--------		  -------
-stack-a		  stack-b
-
-*/
-
-/*
-	pb(&stack_a, &stack_b);
-	print_stack(stack_a);
-	print_stack(stack_b);
-	show_stack(stack_a, stack_b);
-	pb(&stack_a, &stack_b);
-	print_stack(stack_a);
-	print_stack(stack_b);
-	show_stack(stack_a, stack_b);
-	pa(&stack_b, &stack_a);
-	print_stack(stack_a);
-	print_stack(stack_b);
-	show_stack(stack_a, stack_b);
-	pa(&stack_b, &stack_a);
-	print_stack(stack_a);
-	print_stack(stack_b);
-	show_stack(stack_a, stack_b);
-*/

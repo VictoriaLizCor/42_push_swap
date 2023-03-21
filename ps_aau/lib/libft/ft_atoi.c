@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:06:44 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/17 16:59:45 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:44:57 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static long	max_values(long int *num, int *sign, char c)
 
 long int	ft_atoi(const char *s)
 {
-	long	int num;
+	long int	num;
 	int			sign;
 
 	num = 0;
@@ -52,9 +52,7 @@ long int	ft_atoi(const char *s)
 				return (max_values(&num, &sign, *(s + 1)));
 		}
 		else if (num > 0)
-		{
 			return (num * sign);
-		}
 		if ((*s == '+' || *s == '-') && ft_strchr(" +-\t\n\r\v\f", *(s + 1)))
 			return (0);
 		s++;

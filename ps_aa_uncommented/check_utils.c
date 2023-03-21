@@ -6,15 +6,15 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:51:35 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/17 16:48:15 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:01:46 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long int	find_min(t_stack *stack)
+int	find_min(t_stack *stack)
 {
-	long int	min;
+	int	min;
 
 	while (stack)
 	{

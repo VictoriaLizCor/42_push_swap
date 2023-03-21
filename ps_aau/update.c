@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:27:02 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/16 12:50:34 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:23:54 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	update_weight(t_stack *stack)
 	}
 }
 
-void	update_idx_stack_a(t_stack *stack)
+void	update_idx_stack(t_stack *stack)
 {
 	int	i;
 
@@ -39,25 +39,6 @@ void	update_idx_stack_a(t_stack *stack)
 	while (stack)
 	{
 		stack->index = i++;
-		stack = stack->next;
-	}
-}
-
-void	update_idx_stack_b(t_stack *stack)
-{
-	int			i;
-	t_stack		*tmp;
-
-	i = 0;
-	tmp = stack;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	while (stack)
-	{
-		stack->index = i--;
 		stack = stack->next;
 	}
 }

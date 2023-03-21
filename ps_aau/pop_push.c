@@ -6,13 +6,13 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:05:15 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/07 14:27:21 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:41:26 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*pop(t_stack **stack_src)
+static t_stack	*pop(t_stack **stack_src)
 {
 	t_stack	*tmp;
 
@@ -51,8 +51,8 @@ void	pa(t_stack **stack_b, t_stack **stack_a)
 {
 	push_pop(&*stack_b, &*stack_a);
 	ft_printf("pa\n");
-	update_idx_stack_a(*stack_a);
-	update_idx_stack_a(*stack_b);
+	update_idx_stack(*stack_a);
+	update_idx_stack(*stack_b);
 	update_weight(*stack_a);
 	update_weight(*stack_b);
 }
@@ -61,8 +61,8 @@ void	pb(t_stack **stack_a, t_stack **stack_b)
 {
 	push_pop(&*stack_a, &*stack_b);
 	ft_printf("pb\n");
-	update_idx_stack_a(*stack_a);
-	update_idx_stack_a(*stack_b);
+	update_idx_stack(*stack_a);
+	update_idx_stack(*stack_b);
 	update_weight(*stack_a);
 	update_weight(*stack_b);
 }

@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:32:51 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/17 17:02:27 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:45:45 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ void		ft_printf_int(t_printf **content, int *ret);
 void		ft_printf_char(t_printf **content, int *ret);
 void		ft_printf_upx(t_printf **content, int *ret, int base);
 int			ft_get_strsize(unsigned long num, int base);
-void		ft_convert2base(char *str, int str_size, int base, unsigned long num);
+void		ft_convert2base(char *str, int len, int base, unsigned long num);
 void		ft_putstr(char *s);
 void		ft_putchar(char c);
 

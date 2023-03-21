@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/16 10:57:39 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:41:54 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,30 @@ static void	rotate(t_stack **stack)
 	new_tail->next = NULL;
 }
 
-void	ra(t_stack **stack)
+static void	ra(t_stack **stack)
 {
 	rotate(&*stack);
 	ft_printf("ra\n");
-	update_idx_stack_a(*stack);
+	update_idx_stack(*stack);
 	update_weight(*stack);
 }
 
-void	rb(t_stack **stack)
+static void	rb(t_stack **stack)
 {
 	rotate(&*stack);
 	ft_printf("rb\n");
-	update_idx_stack_a(*stack);
+	update_idx_stack(*stack);
 	update_weight(*stack);
 }
 
-void	rr(t_stack **stack_a, t_stack **stack_b)
+static void	rr(t_stack **stack_a, t_stack **stack_b)
 {
 	rotate(&*stack_a);
 	rotate(&*stack_b);
 	ft_printf("rr\n");
-	update_idx_stack_a(*stack_a);
+	update_idx_stack(*stack_a);
 	update_weight(*stack_a);
-	update_idx_stack_a(*stack_b);
+	update_idx_stack(*stack_b);
 	update_weight(*stack_b);
 }
 

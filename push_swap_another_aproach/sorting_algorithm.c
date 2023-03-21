@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 11:17:58 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/20 15:55:15 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:49:19 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void push_b(t_stack **stack_a, t_stack **stack_b, int size)
 
 	while((*stack_a)->previous->index > 3)
 	{
-		if ((*stack_a)->s_idx >= (size - 2))
+		if ((*stack_a)->s_idx == (size))
 			ra(&*stack_a);
 		else
 			pb(&*stack_a, &*stack_b);
@@ -360,6 +360,28 @@ t_stack *get_a(t_stack *target, t_stack **stack_a)
 // 	return (target_s);
 // }
 
+void target_search_ext(t_stack *tmp_a, t_stack *tmp_b, t_targets *targets, int *min_moves)
+{
+	int prev;
+
+	prev = tmp_a->previous->s_idx;
+	if (prev > tmp_a->s_idx)
+		prev = 0;
+	while(tmp_b)
+	{
+		if (tmp_a->s_idx > tmp_b->s_idx && tmp_b->s_idx > prev)
+		{
+			if (abs(tmp_a->weight) + abs(tmp_b->weight) <= *min_moves)
+			{
+				*min_moves = abs(tmp_a->weight) + abs(tmp_b->weight);
+				targets->a = tmp_a;
+				targets->b = tmp_b;
+			}
+		}
+		tmp_b = tmp_b->next;
+	}
+}
+
 void target_search(t_stack *stack_a, t_stack *stack_b, t_targets *targets, int diff_max)
 {
 	t_stack *tmp_a;
@@ -369,27 +391,20 @@ void target_search(t_stack *stack_a, t_stack *stack_b, t_targets *targets, int d
 
 	min_moves = diff_max;
 	tmp_a = stack_a;
-	tmp_b = stack_b;
 	while(tmp_a)
 	{
 		tmp_b = stack_b;
-		while(tmp_b)
-		{
-			prev = tmp_a->previous->s_idx;
-			if (prev > tmp_a->s_idx)
-				prev = 0;
-			if (tmp_a->s_idx > tmp_b->s_idx && tmp_b->s_idx > prev)
-			{
-				if (abs(tmp_a->weight) + abs(tmp_b->weight) < min_moves)
-				{
-					min_moves = abs(tmp_a->weight) + abs(tmp_b->weight);
-					targets->a = tmp_a;
-					targets->b = tmp_b;
-				}
-			}
-			tmp_b = tmp_b->next;
-		}
+		target_search_ext(tmp_a, tmp_b, &*targets, &min_moves);
 		tmp_a = tmp_a->next;
+	}
+	prev = stack_a->previous->s_idx;
+	if (prev > stack_a->s_idx)
+		prev = 0;
+	if (!(targets->a)->weight && !(targets->b)->weight)
+	{
+		if (((targets->b)->next && (targets->b)->next->s_idx < (targets->a)->s_idx) && \
+		prev < (targets->b)->s_idx && (targets->b)->s_idx < (targets->b)->next->s_idx)
+			sb(&*stack_b);
 	}
 }
 
@@ -408,15 +423,10 @@ void	get_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 	target_search(*stack_a, *stack_b, &targets, diff_max);
 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets.a, (targets.a)->index , (targets.a)->s_idx, (targets.a)->weight);
 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets.b, (targets.b)->index , (targets.b)->s_idx, (targets.b)->weight);
-	printf("w_a = [ %d | %d ] =w_b\n",abs((targets.a)->weight), abs((targets.b)->weight));
+	ft_printf("w_a = [ %d | %d ] =w_b\n",abs((targets.a)->weight), abs((targets.b)->weight));
 
 	if (!(targets.a)->weight && !(targets.b)->weight)
-	{
-		if ((targets.b)->next && (targets.b)->next->s_idx < (targets.a)->s_idx && \
-		(targets.a)->previous->s_idx > (targets.a)->s_idx)
-			sb(*stack_b);
 		pa(&*stack_b, &*stack_a);
-	}
 	else if (((targets.a)->weight > 0 && (targets.b)->weight> 0) || \
 	((targets.a)->weight < 0 && (targets.b)->weight < 0))
 	{
@@ -511,16 +521,14 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 	if (size > 1 && !check_sorted(*stack_a))
 	{
 		push_b(&*stack_a, &*stack_b, max_s_idx);
-		if (*stack_b)
-			pa(&*stack_b, &*stack_a);
 		print_stack(*stack_a);
 		print_stack(*stack_b);
 		// while (*stack_b)
-		while (*stack_b && i++ < 10)
+		while (*stack_b)
 			get_target(&*stack_a, &*stack_b, max_s_idx - 1);
 	}
-	// if (!check_sorted(*stack_a))
-	// 	move_stacks(last_ordered(*stack_a)->next, &*stack_a, &*stack_b, 1);
+	if (!check_sorted(*stack_a))
+		move_stacks(last_ordered(*stack_a)->next, &*stack_a, &*stack_b, 1);
 	if (!*stack_b && check_sorted(*stack_a))
 		ft_printf("OK\n");
 }

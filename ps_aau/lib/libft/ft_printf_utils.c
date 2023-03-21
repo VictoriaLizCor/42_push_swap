@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 16:01:55 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/01/04 10:47:49 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:46:14 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ int	ft_get_strsize(unsigned long num, int base)
 	return (str_size);
 }
 
-void	ft_convert2base(char *str, int str_size, int base, unsigned long num)
+void	ft_convert2base(char *str, int len, int base, unsigned long num)
 {
 	long long	remainder;
 
-	while (str_size--)
+	while (len--)
 	{
 		remainder = num % base;
 		if (remainder < 10)
-			*(str + str_size) = '0' + remainder;
+			*(str + len) = '0' + remainder;
 		else
-			*(str + str_size) = 87 + remainder;
+			*(str + len) = 87 + remainder;
 		num = num / base;
 	}
 }

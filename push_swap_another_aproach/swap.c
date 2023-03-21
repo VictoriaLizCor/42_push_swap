@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/16 10:58:52 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:18:42 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,12 @@ void	sa(t_stack *stack)
 {
 	swap(stack);
 	ft_printf("sa\n");
-	update_idx_stack_a(stack);
-	update_weight(stack);
 }
 
 void	sb(t_stack *stack)
 {
 	swap(stack);
 	ft_printf("sb\n");
-	update_idx_stack_a(stack);
-	update_weight(stack);
 }
 
 void	ss(t_stack *stack_a, t_stack *stack_b)
@@ -47,10 +43,6 @@ void	ss(t_stack *stack_a, t_stack *stack_b)
 	swap(stack_a);
 	swap(stack_b);
 	ft_printf("ss\n");
-	update_idx_stack_a(stack_a);
-	update_weight(stack_a);
-	update_idx_stack_a(stack_b);
-	update_weight(stack_b);
 }
 
 void	do_swap(t_stack *stack_a, t_stack *stack_b, int type)

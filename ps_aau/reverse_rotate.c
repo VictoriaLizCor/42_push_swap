@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:56 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/16 10:58:01 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:41:47 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,30 @@ static void	reverse_rotate(t_stack **stack)
 	*stack = new_head;
 }
 
-void	rra(t_stack **stack)
+static void	rra(t_stack **stack)
 {
 	reverse_rotate(&*stack);
 	ft_printf("rra\n");
-	update_idx_stack_a(*stack);
+	update_idx_stack(*stack);
 	update_weight(*stack);
 }
 
-void	rrb(t_stack **stack)
+static void	rrb(t_stack **stack)
 {
 	reverse_rotate(&*stack);
 	ft_printf("rrb\n");
-	update_idx_stack_a(*stack);
+	update_idx_stack(*stack);
 	update_weight(*stack);
 }
 
-void	rrr(t_stack **stack_a, t_stack **stack_b)
+static void	rrr(t_stack **stack_a, t_stack **stack_b)
 {
 	reverse_rotate(&*stack_a);
 	reverse_rotate(&*stack_b);
 	ft_printf("rrr\n");
-	update_idx_stack_a(*stack_a);
+	update_idx_stack(*stack_a);
 	update_weight(*stack_a);
-	update_idx_stack_a(*stack_b);
+	update_idx_stack(*stack_b);
 	update_weight(*stack_b);
 }
 

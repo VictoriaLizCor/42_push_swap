@@ -6,7 +6,7 @@
 /*   By: lilizarr <lilizarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:22:17 by lilizarr          #+#    #+#             */
-/*   Updated: 2023/03/20 15:33:02 by lilizarr         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:57:51 by lilizarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ typedef struct s_targets
 }	t_targets;
 
 /* main */
-void		ft_error(void);
-void		sort_3(t_stack **stack_a, t_stack **stack_b);
+void	ft_error(void);
+void	sort_3(t_stack **stack_a, t_stack **stack_b);
 /* Input verification */
 /* check.c*/
-void		check_integers(char **argv);
-void		check_repeated(t_stack *stack);
+void	check_integers(char **argv);
+void	check_repeated(t_stack *stack);
 /* check_utils.c*/
-long int	find_min(t_stack *stack);
-t_stack		*stack_last(t_stack *stack);
+int		find_min(t_stack *stack);
+t_stack	*stack_last(t_stack *stack);
 /* check_utils2.c*/
 int		find_min_s_idx(t_stack *stack);
 int		find_max_s_idx(t_stack *stack);
