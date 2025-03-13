@@ -34,16 +34,18 @@ FLAGS = -Wall -Wextra -Werror
 all: make_libft $(OBJS_DIR) $(NAME)
 # 
 make_libft:
-	@make -C $(LIBFT_DIR)
+	@echo "*! Make LIBFT"
+	@make -C  $(LIBFT_DIR) -s  > /dev/null
 
 $(NAME): $(OBJS)
 	cc $(FLAGS) $^ $(LIBFT) -o $@
 
 $(OBJS_DIR): 
-	mkdir -p $@
+	@mkdir -p $@
 
 $(addprefix $(OBJS_DIR), %.o): %.c
-	cc -c $(FLAGS) $^ -o $@
+	@cc -c $(FLAGS) $^ -o $@
+
 
 clean:
 	@echo "\n************  CLEAN LIBFT ************" 

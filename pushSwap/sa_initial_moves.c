@@ -33,6 +33,7 @@ static void	sort_3(t_stack **stack_a, t_stack **stack_b)
 		else
 			do_rrotate(&*stack_a, &*stack_b, 1);
 	}
+	show_stack(*stack_a, *stack_b);
 }
 
 void	push_b(t_stack **stack_a, t_stack **stack_b, int size)
@@ -43,7 +44,9 @@ void	push_b(t_stack **stack_a, t_stack **stack_b, int size)
 			do_rotate(&*stack_a, &*stack_b, 1);
 		else
 			pb(&*stack_a, &*stack_b);
+		show_stack(*stack_a, *stack_b);
 	}
 	while (!check_sorted_value(*stack_a))
 		sort_3(&*stack_a, &*stack_b);
+	show_stack(*stack_a, *stack_b);
 }

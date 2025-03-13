@@ -33,8 +33,7 @@ t_stack **stack_b, int type)
 		while (target->weight != 0)
 			do_rotate(&*stack_a, &*stack_b, type);
 	}
-	print_stack(*stack_a);
-	print_stack(*stack_b);
+	show_stack(*stack_a, *stack_b);
 }
 
 static void	target_search_ext(t_stack *tmp_a, t_stack *tmp_b, \
@@ -92,7 +91,7 @@ static void	sort_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 	static t_targets	targets;
 
 	///////
-	ft_printf("size_a = %d| size_b = %d\n", (*stack_a)->previous->index, (*stack_b)->previous->index);
+	ft_printf("\nsize_a = %d| size_b = %d\n", (*stack_a)->previous->index, (*stack_b)->previous->index);
 
 	target_search(*stack_a, *stack_b, &targets, diff_max);
 
@@ -100,7 +99,7 @@ static void	sort_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 	////////////
 	ft_printf("ta -> %p , ta_idx -> %d , ta_sdx = %d, ta_weigth = %d\n", targets.a, (targets.a)->index , (targets.a)->s_idx, (targets.a)->weight);
 	ft_printf("tb -> %p , tb_idx -> %d , tb_sdx = %d, tb_weigth = %d\n", targets.b, (targets.b)->index , (targets.b)->s_idx, (targets.b)->weight);
-	ft_printf("w_a = [ %d | %d ] =w_b\n",abs((targets.a)->weight), abs((targets.b)->weight));
+	ft_printf("w_a = [ %d | %d ] =w_b\n\n",abs((targets.a)->weight), abs((targets.b)->weight));
 	/////
 
 	if (!(targets.a)->weight && !(targets.b)->weight)
@@ -125,8 +124,7 @@ static void	sort_target(t_stack **stack_a, t_stack **stack_b, int diff_max)
 				do_swap(*stack_a, *stack_b, -1);
 		}
 	}
-	print_stack(*stack_a);
-	print_stack(*stack_b);
+	show_stack(*stack_a, *stack_b);
 }
 
 void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
@@ -138,12 +136,11 @@ void	sorting_algorithm(t_stack **stack_a, t_stack **stack_b)
 	if (size > 1 && !check_sorted(*stack_a))
 	{
 		push_b(&*stack_a, &*stack_b, size);
-		print_stack(*stack_a);
-		print_stack(*stack_b);
+		show_stack(*stack_a, *stack_b);
 		while (*stack_b)
 			sort_target(&*stack_a, &*stack_b, size - 1);
 	}
 	if (!check_sorted_value(*stack_a))
 		move_stacks(last_ordered(*stack_a)->next, &*stack_a, &*stack_b, 1);
-	show_stack(*stack_a, *stack_b);
+	// show_stack(*stack_a, *stack_b);
 }

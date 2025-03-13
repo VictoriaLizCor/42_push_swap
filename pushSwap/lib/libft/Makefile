@@ -74,12 +74,12 @@ $(OBJS_LIBFT_DIR) :
 
 # Make the object files
 $(addprefix $(OBJS_LIBFT_DIR), %.o): %.c
-	cc -c $(FLAGS) $^ -o $@
+	@cc -c $(FLAGS) $^ -o $@
 
 # Make standard libft archive
 $(NAME): $(OBJS_LIBFT)
-	ar -rcs $@ $^
-	ar -t $@
+	@ar -rcs $@ $^
+	@ar -t $@
 #	chmod 777 $(NAME)
 
 # Clean intermediary files

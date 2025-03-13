@@ -21,14 +21,14 @@ void	print_stack(t_stack *list)
 	i = 0;
 	print = list;
 	ft_printf("\n\n------------- List HEAD Address : %p\t \t\n", list);
-	ft_printf("Value ||  Idx  || S_Idx || Weight ||\t");
-	ft_printf("     current      ||     previous      ||   next\n");
+	ft_printf("Value ||  Idx  || S_Idx || Weight ||\n");
+	// ft_printf("     current      ||     previous      ||   next\n");
 	while (print && i < 10)
 	{
-		ft_printf("%d  ||   %d  ||   %d   ||  %d   ||", print->value, print->index, \
+		ft_printf("%d  ||   %d  ||   %d   ||  %d   ||\n", print->value, print->index, \
 		print->s_idx, print->weight);
-		ft_printf("    %p   ||    %p   ||%p \n", \
-		print, print->previous, print->next);
+		// ft_printf("    %p   ||    %p   ||%p \n", \
+		// print, print->previous, print->next);
 		print = print->next;
 	}
 	ft_printf("\n------------  END LIST ------------\n");
